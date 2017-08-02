@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <title>象塔直播</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/video.css?v=4">
+    
+    <!--<script type="text/javascript" src="js/jwplayer.js"></script>
+    <script src="js/jwpsrv_frq.js"></script>
+    <script src="js/jwpsrv.js"></script>
+    <script type="text/javascript">jwplayer.key="lsUqQ+PB1edH+bYoMb85Yr5CuPlXyhK/ngcyNQ==";</script>-->
+</head>
+<body>
+    <div class="downmask">
+        <img src="images/downmask.png" alt="">
+    </div>
+  
+    <div id="top">
+        <!--暂无视频-->
+        <!-- <div id="shadow"></div> -->
+        <img src="images/playicon.jpg" class="user_pic bg_user_pic" style="width: 100%; display: none;">
+        <!--暂无视频结束-->
+        <div class="player">
+            <div id='container'>
+                <div id="player"></div>
+            </div>
+        </div>
+        <div id="live-bg">
+            <img src="images/sharelogo.png" class="play-btn">
+        </div>
+        <div class="pannel">
+        <div class="user">
+            <div class="uinfo">
+                <div class="headimg anchorheadimg"> 
+                    <!-- <img src="images/fav.png" alt="">            -->
+                </div>
+                <div class="livename"></div>
+                <div class="cb"></div>
+            </div>  
+        </div>
+        <div class="peonum">
+            <div><span id="viewnum numcount">0人</span>观看</div>
+        </div>
+        
+        <div class="btn-box">
+            <div class="video-discuss-pane">
+                <div class="video-discuss-form discuss-input" id="video-discuss-form" >
+                    <button class="show-product-button"></button><input type="text" class="video-discuss-input" id="msg-input">
+                    <button class="video-discuss-button sendbtn"></button>
+                </div>
+            </div>
+        </div>
+        <div id="pro-list">
+            <div class="pro-list-tit"><img src="images/showlistbtn.png" alt=""> 全部宝贝</div>
+            <div class="prolist-wrapper">
+                <ul>
+                    <li>
+                        <div class="proimg">
+                            <img src="images/proimg.png" class="" alt="">
+                        </div>
+                        <div class="proinfo">
+                            <div class="tit">港味复古温柔大J领纯色短袖连衣裙</div>
+                            <div class="pn">
+                                <span class="price">¥ 36.98</span>
+                                <div class="ctrlnums">
+                                    <!-- <img src="images/minus.png" alt="">
+                                    <input type="number" name="nums" value="1" />
+                                    <img src="images/add.png" alt=""> -->
+                                    <a href="" class="btn btn-buy">马上购买</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                 
+                </ul>
+            </div>
+<!--             <div class="cost">
+                    已选商品<span>333</span>件 合计(不含运费)：<span>39.9</span> <button class="btn btn-cost">结算</button>
+                </div> -->
+        </div>
+        <div class="msg-box" id="msg_box">
+            <div class="buying">
+                <img src="images/buying.png" alt="">
+                刘昴星 在购买的路上
+            </div>
+            <div class="msg_wrapper discuss-pannel">
+                <ul class="video-sms-list message-list" id="video_sms_list">
+                    <!-- <li>
+                        <div>
+                            <span>刘昴星</span> Message
+                        </div>
+                    </li> -->
+                </ul><div id="sth"></div>
+            </div>
+        </div>
+        <div class="recommend_product">
+            <div class="proimg">
+                <img src="images/proimg.png" alt="">
+            </div>
+            <div class="proinfo">
+                <div class="tit">2017年新款雪纺裙</div>
+                <div class="price">¥69.90 <span>¥199.90</span></div>
+            </div>
+        </div>
+     </div>
+    </div>
+    <img src="images/playicon.jpg" class="bobo">
+
+ <div class="shadd" onselectstart="return false"></div>
+ <script src="js/jquery-1.9.1.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src='js/webim/webim.config.js'></script>
+    <script src='js/webim/strophe-1.2.8.min.js'></script>
+    <script src='js/webim/websdk-1.4.7.js'></script>
+    <script src='js/webim/xtwebim-c.js'></script>
+    <script src='js/module_c.js?v=1.0.7'></script>
+    
+    <script src="http://cdn.aodianyun.com/lss/aodianplay/player.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="layui/layui.js"></script>
+    <script src='js/qiniu/bower_components/plupload/js/moxie.js'></script>
+    <script src='js/qiniu/bower_components/plupload/js/plupload.dev.js'></script>
+    <script src='js/qiniu/bower_components/qiniu/dist/qiniu.js'></script>
+    <script>
+
+    "use strict";
+
+// $("#msg-input").click(function(){//表情输入体验优化
+//  console.log(document.getElementById("msg-input").selectionStart)
+// });
+
+var qiniu_token = "";
+
+// document.querySelector("body").addEventListener("touchstart",function (e){
+//  e.preventdefault();
+// },false)
+
+// window.onresize = function () {
+//     applicationInit.resizePlayer();
+// };
+
+
+$(".close").click(function () {
+    $(".ctdialog").removeClass("show");
+});
+
+xtAPI.wechatlogin();
+// applicationInit.init();
+
+$("#sendmoney").click(function () {
+    var gift_id = $(".money-choose li[class=money-selected]").attr("data-gift-id");
+    if (gift_id == 6) {
+        wxPay.onBridgeReady(2, gift_id, Number($("#moneysum").val()).toFixed(2));
+    } else {
+        wxPay.onBridgeReady(2, gift_id);
+    }
+});
+
+$("#tocustomer").click(function () {
+    wxPay.sendtocustomer(Number($("#moneysumtocust").val()).toFixed(2), 1, $("#red-wish").val(), $(".pocketnum").val());
+});
+
+$("#getredpacket").click(function () {
+    $(this).removeClass("show");
+});
+
+$("#moneysum").keyup(function () {
+    var money_value = $(this).val();
+    // var r = new RegExp(/^[0-9]*\.?[0-9]{0,2}$/);
+    // console.log(r.test(money_value));
+    $(".custom-money span").text(money_value);
+});
+
+$(".callfunctionbtn").click(function () {
+    $(".function-menu").toggleClass("showfuntion");
+});
+       //  playerInstancea();
+       //  $(".player").show();
+       //  $(".pannel").show();
+
+       //  $("#shadow").click(function(){
+       //      $(this).hide();
+       //      player.play();
+       //   });
+       //  function playerInstancea(){
+       //      var player_height=$(window).height();
+       //      player=jwplayer("container").setup({
+       //                  file: "http://122.192.35.80:1931/live/tvb8.stream/playlist.m3u8",
+       //                  type: "mp4",
+       //                  width: "100%",
+       //                  height: player_height,
+       //                  skin: "js/bekle.xml",
+       //                  image: "images/dlexplain.png",
+       //                  controls: false,
+       //                  stretching:"fill",
+       //                  primary: "html5",
+       //          events: {
+       //              // onPlay: onPlay,
+       //              // onPause:onPause,
+       //              // onDisplayClick:onDisplayClick
+       //          }
+       //  });
+       // }
+
+       $(".pro-list-tit").click(function(){
+        $("#pro-list").css("bottom","-333px");
+       });
+
+       $(".show-product-button").click(function(){
+        $("#pro-list").css("bottom","0");
+       });
+    </script>
+</body>
+</html>

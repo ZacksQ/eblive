@@ -1,0 +1,246 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,
+address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,
+u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,
+th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,
+ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+body{line-height:1;font-family: 'Microsoft yahei';}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+table{border-collapse:collapse;border-spacing:0;}
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  /*color: #fff;*/
+  outline: none;}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+body.index{
+	background-color: #1c2146;
+}
+
+img{
+	width: 100%;
+}
+
+.joinbtn{
+	display: block;
+	color: #fff;
+	color: 20px;
+	line-height: 2;
+	background: url(../images/myimages/btnbg.png) repeat-x center left;
+	border-radius: 6px;
+	width: 90%;
+	margin: 10px auto;
+	text-align: center;
+}
+
+.body{
+	background: url(../images/myimages/bg.png) no-repeat center top;
+}
+section{
+	margin-bottom: 20px;
+}
+section header{
+	color: #fcdc18;
+	line-height: 2;
+	background-color: rgba(255,255,255,.3);
+	padding: 0 10px;
+	font-size: 19px;
+	margin-bottom: 20px;
+}
+section p{
+	padding:0 10px; 
+	line-height: 1.4;
+	color: #fff;
+	/*font-size: 12px;*/
+}
+.red{ color: #ff4444}
+.fr{ float: right;}
+.fl{ float: left;}
+
+header .more{
+	color: #d5d5d5;
+	font-size: 16px;
+	display: block;
+	line-height: 2;
+	margin-top: 3px;
+}
+
+.top3{
+	background-color: rgba(255,255,255,0.2);
+	padding: 10px;
+	margin-bottom: 8px;
+	/*display: box;*/
+	/*display: -webkit-box;*/
+	color: #fff;
+}
+.top3 dt{
+	/*box-flex:1;*/
+	/*-webkit-box-flex:1;*/
+	width: 30%;
+	/*display: inline-block;*/
+	float: left;
+
+}
+.top3 dd{
+	/*display: inline-block;*/
+	float: left;
+	width: 70%;
+	padding: 0 10px;
+	line-height: 2;
+	padding-bottom: 3px;
+	font-size: 13px;
+	/*box-flex:1;*/
+	/*-webkit-box-flex:1;*/
+}
+.top3:after,.top3 dd:after,.top:after,.ranklist li:after,.ranking .hd:after{
+	clear: both;
+	content: '.';
+	display: block;
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+.top3 dd img{
+	vertical-align: middle;
+}
+.top3 dd .avatar{
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
+	border-radius: 100%;
+}
+.followers img{
+ width: 15px !important;
+ vertical-align: middle;
+}
+.top{
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fecc86+0,fe9499+100 */
+background: rgb(254,204,134); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(254,204,134,1) 0%, rgba(254,148,153,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(254,204,134,1) 0%,rgba(254,148,153,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(254,204,134,1) 0%,rgba(254,148,153,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fecc86', endColorstr='#fe9499',GradientType=0 ); /* IE6-9 */
+/*display: box;*/
+	/*display: -webkit-box;*/
+	padding: 20px 0;
+}
+.top .t3{
+	/*box-flex:1;*/
+	/*-webkit-box-flex:1;*/
+	float: left;
+	width: 33.333333%;
+	text-align: center;
+	padding: 0 20px;
+	color: #fff;
+}
+.top .t3:nth-child(2){
+	float: right;
+	margin-top: 20px;
+}
+/*.ts1{
+	float: left;
+}
+
+.ts2{
+	float: left;
+}
+.ts3{
+	float: right;
+}*/
+.top .t3 img{
+	width: 80px;
+	border-radius: 100%;
+	height: 80px;
+}
+.t3 .nickname{
+	border-bottom: 1px solid #FFF;
+	padding: 5px;
+	margin-bottom: 5px;
+	margin-top: 20px;
+	width: 100%;
+	font-size: 13px;
+	overflow: hidden;text-overflow: ellipsis;white-space: nowrap; 
+}
+.t3 .fans img{
+	width: 15px;
+	vertical-align: middle;
+	margin-right: 5px;
+	height: auto;
+}
+.t3:first-of-type{
+	margin-top: 20px;
+}
+
+.t3 .avatar{
+	position: relative;
+}
+.avatar img.no{
+	position: absolute;
+	width: 30px;
+	bottom: -15px;
+	left: 0;
+	right: 0;
+	margin:auto;
+	height: 30px;
+}
+.ranklist li{
+	color: #000;
+	line-height: 2;
+	padding: 10px 20px;
+	border-bottom: 2px solid #f1f1f1;
+}
+.ranklist li .avatar{
+	width: 40px;
+	margin: 0 10px;
+	vertical-align: middle;
+	border-radius: 100%;
+	height: 40px;
+}
+.ranklist .followers{
+	color:#d5d5d5;
+	margin-top: 9px;
+	margin-right: 10px;
+	width: 16%;
+	font-size: 13px;
+}
+.ranklist .followers img{ vertical-align: -3px;}
+.focus{
+	display: block;
+	border-radius: 6px;
+	color: #fff;
+	background-color: #ff6b2b;
+	width: 60px;
+	text-align: center;
+	line-height: 2;
+	margin-top: 9px;
+	margin-right: 5px;
+}
+.ranking .hd{
+	background-color: rgb(254,204,134);
+}
+.ranking .hd li{
+	width: 33.333333%; 
+	float: left;	
+	line-height: 2;
+	text-align: center;
+	font-size: 18px;
+	padding: 5px 0;
+}
+.ranking .hd li.on{ border-bottom: 2px solid #fff; color: #fff;}
+.ranklist .nickname,.top3 .nickname{
+	    width: 40%;
+    display: inline-block;
+    overflow: hidden;text-overflow: ellipsis;white-space: nowrap; 
+    margin-top: 4px;
+    font-size: 13px;
+}
+.ranking .fl{
+	width: 50%
+}
+.fans{ font-size: 13px;}

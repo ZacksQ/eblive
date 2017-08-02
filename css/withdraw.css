@@ -1,0 +1,34 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+body{font-family:'Microsoft yahei';/*overflow:hidden;*/max-width: 640px; margin: 0 auto;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+table{border-collapse:collapse;border-spacing:0;}
+*{box-sizing:border-box;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;}
+a{color:#040404;text-decoration:none;-webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;}
+img{border:0 none;}
+.wrapper{ margin: 30px 10px 10px;}
+#xtid{/* line-height: 40px;*/ font-size: 1em;font-family: sans-serif;}
+.bindxtid{ display: block; text-align: center; width: 100%; background-color: #e94f27; color: #fff; line-height: 40px; border:0 none; border-radius: 6px; }
+.bind p{ margin: 17px 0; text-align: center; color: #e94f27}
+.bind .code{position: relative;}
+.bind .code #btn_send{ position: absolute; right: 0; top: 0; display: block; height: 100%;line-height: 34px;padding: 0 5px;background-color: #e94f27; color: #fff; border-radius: 4px; }
+.step2{ display: none;}
+.withdraw{ text-align: center; }
+.withdraw .headimg{ border-radius: 100%; width: 65px;margin-top: 20%;}
+.withdraw .username{ color: #585858; font-size: 13px; margin-bottom: 10px;}
+.withdraw .wd{ display: box; display: -webkit-box; border-top:1px solid #CACACA;border-bottom:1px solid #CACACA;}
+.withdraw .wd div:first-of-type{ -webkit-box-flex:2;box-flex:2; line-height: 40px; color: #585858}
+.withdraw .wd div:last-of-type{ -webkit-box-flex:8;box-flex:8;}
+.withdraw .wd div:last-of-type input{display: block; width: 100%; font-size: 1em; height: 40px; border: 0 none;}
+.withdraw .bindxtid{ width: 90%; margin: 10px auto 30px; border-radius: 6px;}
+.withdraw p{ color: #CACACA; font-size: 12px; margin: 10px 0;}
+.incomeul{display: box; display: -webkit-box; }
+.incomeul li{ -webkit-box-flex:1;box-flex:1;text-align: center; /*border-top: 1px solid #CACACA;border-bottom: 1px solid #CACACA; */padding: 10px 0}
+/*.income li:first-of-type{ border-right: 1px solid #CACACA}*/
+.incomeul li div{ font-size: 27px; color: #e94f27; font-family:sans-serif}
+.incomeul li h3{ /*color: #585858;*/ font-size: 12px;color:#AEAEAE;}
+.unbind{ float: right; color:#e94f27;font-size: 12px; margin-right: 10px; margin-top: 10px;}
+.clear{ clear:both;}
