@@ -336,8 +336,8 @@ var xtAPI = function () {
 		tit: "",
 		des: "我正在象塔看直播",
 		timelinesharecontent: "我正在象塔看直播",
-		img: commonUrl + "newlive/web/images/sharelogo.png",
-		link: commonUrl + "newlive/eblive/index.html?liveid=" + request["liveid"]
+		img: commonUrl + "newliveshop/web/images/sharelogo.png",
+		link: commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"]
 	};
 	var from = 1;
 
@@ -479,7 +479,7 @@ var xtAPI = function () {
 			}
 
 			$.ajax({
-				url: commonUrl + 'newlive/tUser/wxWeblogin.do',
+				url: commonUrl + 'newliveshop/tUser/wxWeblogin.do',
 				type: 'post',
 				dataType: 'json',
 				data: postdata,
@@ -534,7 +534,7 @@ var xtAPI = function () {
 										switch (watchtype) {
 											case 1:
 												$(".auth-model-body").prepend('<div>' + '<input type="text" placeholder="请输入直播密码" name="password">' + '</div>');
-												ajaxurl = 'newlive/tLivechannel/loadChannelByPwd.do';
+												ajaxurl = 'newliveshop/tLivechannel/loadChannelByPwd.do';
 
 												break;
 											case 2:
@@ -565,7 +565,7 @@ var xtAPI = function () {
 														$(".getcode").unbind("click");
 
 														$.ajax({
-															url: xtAPI.commonUrl + 'newlive/tLivechannel/sendCodeBeforeLoad.do',
+															url: xtAPI.commonUrl + 'newliveshop/tLivechannel/sendCodeBeforeLoad.do',
 															type: 'post',
 															data: { liveid: request["liveid"], phone: phone },
 															dataType: 'json',
@@ -593,7 +593,7 @@ var xtAPI = function () {
 												};
 
 												$(".getcode").bind("click", sendCode);
-												ajaxurl = 'newlive/tLivechannel/loadChannelByPhone.do';
+												ajaxurl = 'newliveshop/tLivechannel/loadChannelByPhone.do';
 
 												break;
 											case 3:
@@ -643,7 +643,7 @@ var xtAPI = function () {
 										if (watchtype == 3) {
 											//付费观看预支付
 											$.ajax({
-												url: xtAPI.commonUrl + 'newlive/tLivechannel/buyChannelBefore.do',
+												url: xtAPI.commonUrl + 'newliveshop/tLivechannel/buyChannelBefore.do',
 												dataType: 'json',
 												type: 'post',
 												data: { liveId: request["liveid"] },
@@ -658,7 +658,7 @@ var xtAPI = function () {
 														// if (res.errMsg == "getBrandWCPayRequest:fail,没有此SDK或暂不支持此SDK模拟") {
 														if (res.err_msg == "get_brand_wcpay_request:ok") {
 															$.ajax({
-																url: xtAPI.commonUrl + 'newlive/tLivechannel/loadChannelByFee.do',
+																url: xtAPI.commonUrl + 'newliveshop/tLivechannel/loadChannelByFee.do',
 																dataType: 'json',
 																type: 'post',
 																data: postdata,
@@ -817,7 +817,7 @@ var xtAPI = function () {
 										easemob.options.user = localStorage.getItem("usercode");
 										easemob.options.pwd = localStorage.getItem("password");
 
-										$.post(commonUrl + "newlive/im/getoldMsg.do", { "chatroomid": easemob.roomId, "perNumber": 10, "createtime": new Date().Format("yyyy-MM-dd hh:mm:ss") }, function (d) {
+										$.post(commonUrl + "newliveshop/im/getoldMsg.do", { "chatroomid": easemob.roomId, "perNumber": 10, "createtime": new Date().Format("yyyy-MM-dd hh:mm:ss") }, function (d) {
 											// console.log(d)
 											if (d["success"] == true) {
 												for (var _i = d["data"]["historylist"].length - 1; _i >= 0; _i--) {
@@ -906,7 +906,7 @@ var xtAPI = function () {
 										document.querySelector(".discuss-pannel").addEventListener("scroll", handleControl.showhistorytop10, false);
 
 										var getoken = new Promise(function (resolve) {
-											$.post(xtAPI.commonUrl + "newlive/mImhistory/getImgUptoken.do", function (d) {
+											$.post(xtAPI.commonUrl + "newliveshop/mImhistory/getImgUptoken.do", function (d) {
 												qiniu_token = d["data"]["uptoken"];
 												var uploader = Qiniu.uploader({
 													runtimes: 'html5,flash,html4', // 上传模式,依次退化
@@ -1002,7 +1002,7 @@ var xtAPI = function () {
 				return;
 			}
 			$.ajax({
-				url: commonUrl + 'newlive/stemp/getChannelAuth.do',
+				url: commonUrl + 'newliveshop/stemp/getChannelAuth.do',
 				type: 'post',
 				dataType: "json",
 				data: { liveId: request["liveid"] },
@@ -1110,7 +1110,7 @@ var xtAPI = function () {
 							easemob.options.user = '9a088d3826ae45cfbc7099857f487b8f';
 							easemob.options.pwd = '9a088d3826ae45cfbc7099857f487b8f';
 
-							$.post(commonUrl + "newlive/im/getoldMsg.do", { "chatroomid": easemob.roomId, "perNumber": 10, "createtime": new Date().Format("yyyy-MM-dd hh:mm:ss") }, function (d) {
+							$.post(commonUrl + "newliveshop/im/getoldMsg.do", { "chatroomid": easemob.roomId, "perNumber": 10, "createtime": new Date().Format("yyyy-MM-dd hh:mm:ss") }, function (d) {
 								// console.log(d)
 								if (d["success"] == true) {
 									for (var _i = d["data"]["historylist"].length - 1; _i >= 0; _i--) {
@@ -1157,7 +1157,7 @@ var xtAPI = function () {
 	var liveInfo = function liveInfo() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/tLivechannel/loadChannel.do',
+				url: commonUrl + 'newliveshop/tLivechannel/loadChannel.do',
 				type: 'post',
 				dataType: 'json',
 				data: { "liveid": request["liveid"], "userOrigin": xtAPI.from },
@@ -1171,7 +1171,7 @@ var xtAPI = function () {
 					}
 				}
 				// ,error:function(){
-				// 	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa5af90cb393880b6&redirect_uri=http://www.xiangtazhibo.com/newlive/web/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+				// 	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa5af90cb393880b6&redirect_uri=http://www.xiangtazhibo.com/newliveshop/web/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 				// }
 			});
 		});
@@ -1180,7 +1180,7 @@ var xtAPI = function () {
 	var getChannelInfo = function getChannelInfo() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/stemp/getChannelInfo.do',
+				url: commonUrl + 'newliveshop/stemp/getChannelInfo.do',
 				type: 'post',
 				dataType: 'json',
 				data: { "liveId": request["liveid"], "userOrigin": xtAPI.from },
@@ -1194,7 +1194,7 @@ var xtAPI = function () {
 					}
 				}
 				// ,error:function(){
-				// 	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa5af90cb393880b6&redirect_uri=http://www.xiangtazhibo.com/newlive/web/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+				// 	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxa5af90cb393880b6&redirect_uri=http://www.xiangtazhibo.com/newliveshop/web/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 				// }
 			});
 		});
@@ -1216,7 +1216,7 @@ var xtAPI = function () {
 
 	var showhistory = function showhistory() {
 		var topli = document.querySelector(".message-list li[data-createtime]");
-		$.post(commonUrl + "newlive/im/getoldMsg.do", { "chatroomid": easemob.roomId, "perNumber": 10, "createtime": topli.getAttribute("data-createtime") }, function (d) {
+		$.post(commonUrl + "newliveshop/im/getoldMsg.do", { "chatroomid": easemob.roomId, "perNumber": 10, "createtime": topli.getAttribute("data-createtime") }, function (d) {
 			var historylist = d["data"]["historylist"];
 			if (d["success"] == true && historylist.length > 0) {
 				for (var _i = 0; _i < historylist.length; _i++) {
@@ -1232,7 +1232,7 @@ var xtAPI = function () {
 	var loadindexitem = function loadindexitem() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/tLivechannel/getLoaditems.do',
+				url: commonUrl + 'newliveshop/tLivechannel/getLoaditems.do',
 				type: 'post',
 				dataType: 'json',
 				data: { "liveid": request["liveid"], types: "1,2,3,4,5,6,7" },
@@ -1248,7 +1248,7 @@ var xtAPI = function () {
 	var loadhistorymsg = function loadhistorymsg() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/im/getHistoryMsg.do',
+				url: commonUrl + 'newliveshop/im/getHistoryMsg.do',
 				type: 'post',
 				dataType: 'json',
 				data: { "groupid": easemob.roomId, "startnum": 0, "pernum": 10 },
@@ -1264,7 +1264,7 @@ var xtAPI = function () {
 	var getredpacket = function getredpacket(rpid) {
 		$("#getredpacket .desc").html('');
 		$.ajax({
-			url: commonUrl + 'newlive/tHongbao/grapHongbao.do',
+			url: commonUrl + 'newliveshop/tHongbao/grapHongbao.do',
 			type: 'post',
 			dataType: 'json',
 			data: { 'liveid': request["liveid"], 'hongbaoid': rpid },
@@ -1288,7 +1288,7 @@ var xtAPI = function () {
 	var accountmoney = function accountmoney() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/tAccount/getAccountMoney.do',
+				url: commonUrl + 'newliveshop/tAccount/getAccountMoney.do',
 				type: 'post',
 				dataType: 'json',
 				success: function success(d) {
@@ -1305,7 +1305,7 @@ var xtAPI = function () {
 	var getPhoneUserAccount = function getPhoneUserAccount() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/tUser/getPhoneUserAccount.do',
+				url: commonUrl + 'newliveshop/tUser/getPhoneUserAccount.do',
 				type: 'post',
 				dataType: 'json',
 				success: function success(d) {
@@ -1322,7 +1322,7 @@ var xtAPI = function () {
 	var withdraw = function withdraw() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/tAccount/getDrawedRecords.do',
+				url: commonUrl + 'newliveshop/tAccount/getDrawedRecords.do',
 				type: 'post',
 				dataType: 'json',
 				success: function success(d) {
@@ -1335,7 +1335,7 @@ var xtAPI = function () {
 	var getAccountRecord = function getAccountRecord() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/tAccountrecord/getAccountRecord.do',
+				url: commonUrl + 'newliveshop/tAccountrecord/getAccountRecord.do',
 				type: 'post',
 				data: { userType: 2, type: 2 },
 				dataType: 'json',
@@ -1349,7 +1349,7 @@ var xtAPI = function () {
 	var webGetChannels = function webGetChannels() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/tLivechannel/webGetChannels.do',
+				url: commonUrl + 'newliveshop/tLivechannel/webGetChannels.do',
 				type: 'post',
 				dataType: 'json',
 				data: { liveid: request["liveid"] },
@@ -1367,7 +1367,7 @@ var xtAPI = function () {
 	var webGetCases = function webGetCases() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newlive/tLivechannel/getRecommendLiveChannels.do',
+				url: commonUrl + 'newliveshop/tLivechannel/getRecommendLiveChannels.do',
 				type: 'post',
 				dataType: 'json',
 				data: { liveid: request["liveid"] },
@@ -1384,7 +1384,7 @@ var xtAPI = function () {
 
 	var applicationmoney = function applicationmoney() {
 		$.ajax({
-			url: commonUrl + 'newlive/tAccount/drawMoney.do',
+			url: commonUrl + 'newliveshop/tAccount/drawMoney.do',
 			data: { "money": Number($("#withdrawmoney").val()).toFixed(2) }, //Number后NaN判断下呢？！
 			dataType: 'json',
 			type: 'post',
@@ -1410,7 +1410,7 @@ var xtAPI = function () {
 				// });
 
 				$.ajax({
-					url: commonUrl + 'newlive/tAccount/getAccountMoney.do',
+					url: commonUrl + 'newliveshop/tAccount/getAccountMoney.do',
 					type: 'post',
 					dataType: 'json',
 					success: function success(d) {
@@ -1427,7 +1427,7 @@ var xtAPI = function () {
 
 	var anchor_applicationmoney = function anchor_applicationmoney() {
 		$.ajax({
-			url: commonUrl + 'newlive/tAccount/drawMoneyPhoneUser.do',
+			url: commonUrl + 'newliveshop/tAccount/drawMoneyPhoneUser.do',
 			data: { "money": Number($("#withdrawmoney").val()).toFixed(2) }, //Number后NaN判断下呢？！ 我就不判断~
 			dataType: 'json',
 			type: 'post',
@@ -1449,7 +1449,7 @@ var xtAPI = function () {
 				$(".redpacket-wrapper img").attr("src", withdrawpic);
 
 				$.ajax({
-					url: commonUrl + 'newlive/tUser/getPhoneUserAccount.do',
+					url: commonUrl + 'newliveshop/tUser/getPhoneUserAccount.do',
 					type: 'post',
 					dataType: 'json',
 					success: function success(d) {
@@ -1466,7 +1466,7 @@ var xtAPI = function () {
 
 	var getWxsign = function getWxsign() {
 		$.ajax({
-			url: commonUrl + "newlive/wechat/getWxSign.do",
+			url: commonUrl + "newliveshop/wechat/getWxSign.do",
 			type: "post",
 			dataType: "json",
 			data: {
@@ -1523,7 +1523,7 @@ var xtAPI = function () {
 	};
 
 	var invite = function invite() {
-		$("#invite-dialog").html("<img src='" + commonUrl + "newlive/tLivechannel/makeQrcode.do?liveid=" + request["liveid"] + "'/>");
+		$("#invite-dialog").html("<img src='" + commonUrl + "newliveshop/tLivechannel/makeQrcode.do?liveid=" + request["liveid"] + "'/>");
 	};
 
 	return {
@@ -1579,7 +1579,7 @@ var wxPay = function () {
 	var onBridgeReady = function onBridgeReady(type, giftid, sendmoney) {
 		$.ajax({
 			type: "post",
-			url: xtAPI.commonUrl + "newlive/tGiftrecord/getWxPayidForgift.do",
+			url: xtAPI.commonUrl + "newliveshop/tGiftrecord/getWxPayidForgift.do",
 			data: { "type": type, "liveid": xtAPI.request["liveid"], "giftid": giftid, besenderid: "f44aa085334c47b899597d5441f293f5", "sendmoney": sendmoney },
 			datatype: "json",
 			success: function success(data) {
@@ -1594,7 +1594,7 @@ var wxPay = function () {
 						$(".ctdialog").removeClass("show");
 
 						$.ajax({
-							url: xtAPI.commonUrl + 'newlive/tLivechannel/getLoaditems.do',
+							url: xtAPI.commonUrl + 'newliveshop/tLivechannel/getLoaditems.do',
 							type: 'post',
 							dataType: 'json',
 							data: { "liveid": xtAPI.request["liveid"], types: 6 },
@@ -1623,7 +1623,7 @@ var wxPay = function () {
 		if (parseFloat(money / detailnum) >= 0.01) {
 			$.ajax({
 				type: "post",
-				url: xtAPI.commonUrl + "newlive/tHongbao/sendHongbao.do",
+				url: xtAPI.commonUrl + "newliveshop/tHongbao/sendHongbao.do",
 				data: { "money": money, "liveid": xtAPI.request["liveid"], "hongbaotype": hongbaotype, sendtxt: sendtxt, "detailnum": detailnum },
 				datatype: "json",
 				success: function success(data) {

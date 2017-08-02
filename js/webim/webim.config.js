@@ -18,7 +18,7 @@ WebIM.config = {
     /*
      * Application AppKey
      */
-    appkey: '1139161206115828#newlive',
+    appkey: '1172161017115117#hxdfwc',
     /*
      * Whether to use wss
      * @parameter {Boolean} true or false

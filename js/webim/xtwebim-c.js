@@ -315,7 +315,7 @@ var easemob = function () {
 
         if (txt == "") return false;
         $.ajax({
-            url: xtAPI.commonUrl + 'newlive/im/sendMsgNew.do',
+            url: xtAPI.commonUrl + 'newliveshop/im/sendMsgNew.do',
             type: "post",
             dataType: "json",
             data: {
