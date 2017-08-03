@@ -10,8 +10,7 @@
 var handleControl = function () {
 	var player = document.createElement("video");
 	var playprop = {
-		"width": window.innerWidth,
-		"height": window.innerHeight
+		"width": window.innerWidth, "height": window.innerHeight
 	};
 	var showEmoji = function showEmoji() {
 		$(".discuss-input-pannel").toggleClass("showemoji");
@@ -100,7 +99,7 @@ var handleControl = function () {
 	};
 
 	var showPlayer = function showPlayer() {
-		$(".countdown-wrapper").hide();
+		// $(".countdown-wrapper").hide();
 		$("#player").css("display", "flex");
 
 		// var objectPlayer=new aodianPlayer({
@@ -136,7 +135,10 @@ var handleControl = function () {
 		document.getElementById("player").appendChild(player);
 		document.querySelector("#player video").setAttribute("x5-video-player-type", "h5");
 		var isAndroid = /Android/i.test(navigator.userAgent);
-
+		$(".playbtn").click(function(){
+			$(this).hide();
+			player.play();
+		});
 		//安卓全屏模拟
 		if (isAndroid) {
 			document.querySelector("#player video").setAttribute("x5-video-player-fullscreen", true);
@@ -146,26 +148,20 @@ var handleControl = function () {
 				// player.style["object-position"]= "0px 0px";				
 			};
 			player.addEventListener("x5videoenterfullscreen", function () {
-				// alert("player enterfullscreen"); 
-				if (xtAPI.liveInfo["data"]["advopen"]) {
-					player.style["object-position"] = "0px 78px";
-				} else {
-					player.style["object-position"] = "0px 43px";
-				}
+
+				
 				$("body").addClass("androidfull androidpo");
 				player.style.background = "#000";
 			});
 			player.addEventListener("x5videoexitfullscreen", function () {
-				// player.style.width = window.innerWidth + "px";
-				// player.style.height = handleControl.playprop.width/window.innerWidth*handleControl.playprop.height + "px"; 
+				$(".playbtn").show();
 				$("body").removeClass("androidpo");
 				player.style["object-position"] = "0px 0px";
-				player.style.background = "url(" + xtAPI.liveInfo["data"]["bakimg"] + ") no-repeat center";
 			});
 		} else {
 			document.querySelector("#player video").setAttribute("x5-video-player-fullscreen", false);
 		}
-		applicationInit.resizePlayer()
+		applicationInit.resizePlayer();
 		var isWeixin = /MicroMessenger/i.test(navigator.userAgent);
 		if (isWeixin) {
 			document.querySelector("video").addEventListener("loadedmetadata", function () {
@@ -306,7 +302,7 @@ var applicationInit = function () {
 	};
 
 	var scrollIntoView = function scrollIntoView() {
-			document.getElementById("sth").scrollIntoView();
+		document.getElementById("sth").scrollIntoView();
 	};
 
 	return {
@@ -342,6 +338,11 @@ var xtAPI = function () {
 	var from = 1;
 
 	var wechatlogin = function wechatlogin() {
+
+		var isMobile = /Mobile/i.test(navigator.userAgent);
+		if(!isMobile){
+			window.location.href="pcvideo.html";
+		}
 
 		Date.prototype.Format = function (fmt) {
 			//日期格式化处理
@@ -703,6 +704,7 @@ var xtAPI = function () {
 								}
 
 								function initLiving() {
+									localStorage.setItem("isChooseLogined", 1);//跳转成功后再标记
 									Promise.all([xtAPI.loadindexitem(), xtAPI.giftlist(), easemob]).then(function (result) {
 										var liveinfo = xtAPI.liveInfo["data"],
 										    indexitem = result[0],
@@ -762,7 +764,6 @@ var xtAPI = function () {
 										}
 										$(".live-items .hd li:first").addClass("active");
 
-										
 										applicationInit.resizePlayer();
 										// $.smartScroll($(".container"), '.content-slide');
 										$(".player-wrapper").css("backgroundImage", "url(" + liveinfo["bakimg"] + ")");
@@ -786,11 +787,32 @@ var xtAPI = function () {
 												// },1000);
 											}
 										}
-
+										if(giftlist.length > 0){
+											$(".recommend_product").attr("href",giftlist[0]["detail_url"]);
+											$(".recommend_product").html('<div class="proimg">'+
+								                '<img src="' + giftlist[0]["img_url"] + '" alt="">'+
+								            '</div>'+
+								            '<div class="proinfo">'+
+								                '<div class="tit">' + giftlist[0]["shop_name"] + '</div>'+
+								                '<div class="price">¥' +  Number(giftlist[i]["price"]).toFixed(2) + '</div>'+
+								            '</div>');
 										for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
-											$(".money-choose").append("<li data-gift-id=" + giftlist[i]["id"] + ">" + giftlist[i]["giftname"] + "</li>");
+											$(".prolist-wrapper ul").append('<li>'+
+					                        '<div class="proimg">'+
+					                            '<img src="' + giftlist[i]["img_url"] + '" class="" alt="">'+
+					                        '</div>'+
+					                        '<div class="proinfo">'+
+					                            '<div class="tit">' + giftlist[i]["shop_name"] + '</div>'+
+					                            '<div class="pn">'+
+					                                '<span class="price">¥ ' + Number(giftlist[i]["price"]).toFixed(2) + '</span>'+
+					                                '<div class="ctrlnums">'+
+					                                    '<a href="' + giftlist[i]["detail_url"] + '" class="btn btn-buy">马上购买</a>'+
+					                                '</div>'+
+					                            '</div>'+
+					                        '</div>'+
+					                    '</li>');
 										}
-
+									}
 										$(".money-choose li:first").addClass("money-selected");
 
 										$(".money-choose li").click(function () {
@@ -991,14 +1013,14 @@ var xtAPI = function () {
 							});
 						} else {
 						// resolve(false);
-						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newlive/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
+						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
 					}
 				}
 			});
 		} else {
 			// $(".callfunctionbtn").hide();
 			if (localStorage.getItem("isChooseLogined")) {
-				window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newlive/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
+				window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
 				return;
 			}
 			$.ajax({
@@ -1008,7 +1030,7 @@ var xtAPI = function () {
 				data: { liveId: request["liveid"] },
 				success: function success(d) {
 					if (d["data"]["authwatch"] != 0) {
-						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newlive/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
+						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
 					} else {
 						if (d["data"]["leaderimgOpen"] != 0) {
 							//欢迎页
@@ -1030,9 +1052,9 @@ var xtAPI = function () {
 								$(".welcome").fadeOut(1000);
 							}, 3000);
 						}
-						Promise.all([xtAPI.getChannelInfo(), xtAPI.loadindexitem()]).then(function (result) {
+						Promise.all([xtAPI.getChannelInfo(), xtAPI.loadindexitem(),xtAPI.giftlist()]).then(function (result) {
 							var liveinfo = xtAPI.liveInfo["data"] = result[0],
-							    indexitem = result[1];
+							    indexitem = result[1],giftlist = result[2];
 							$(".loading").fadeOut();
 
 							var _request = xtAPI.request;
@@ -1074,7 +1096,7 @@ var xtAPI = function () {
 								share.img = indexitem["logo"]["logoimg"];
 								// $(".anchorheadimg").html(`<img src="${indexitem["logo"]["logoimg"]}" alt="" class="response">`);
 							}
-						
+
 							var timecountend = indexitem["timer"]["timecountend"];
 							if (liveinfo["liveopen"] == 0 && liveinfo["videoopen"] == 0) {
 								$(".countdown-label").hide();
@@ -1095,12 +1117,37 @@ var xtAPI = function () {
 									// },1000);
 								}
 							}
-						
+
+							if(giftlist.length > 0){
+											$(".recommend_product").attr("href",giftlist[0]["detail_url"]);
+											$(".recommend_product").html('<div class="proimg">'+
+								                '<img src="' + giftlist[0]["img_url"] + '" alt="">'+
+								            '</div>'+
+								            '<div class="proinfo">'+
+								                '<div class="tit">' + giftlist[0]["shop_name"] + '</div>'+
+								                '<div class="price">¥' +  Number(giftlist[0]["price"]).toFixed(2) + '</div>'+
+								            '</div>');
+										for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
+											$(".prolist-wrapper ul").append('<li>'+
+					                        '<div class="proimg">'+
+					                            '<img src="' + giftlist[i]["img_url"] + '" class="" alt="">'+
+					                        '</div>'+
+					                        '<div class="proinfo">'+
+					                            '<div class="tit">' + giftlist[i]["shop_name"] + '</div>'+
+					                            '<div class="pn">'+
+					                                '<span class="price">¥ ' + Number(giftlist[i]["price"]).toFixed(2) + '</span>'+
+					                                '<div class="ctrlnums">'+
+					                                    '<a href="' + giftlist[i]["detail_url"] + '" class="btn btn-buy">马上购买</a>'+
+					                                '</div>'+
+					                            '</div>'+
+					                        '</div>'+
+					                    '</li>');
+										}
+									}
 							// $(".numcount").text('1154人');
 							$(".numcount").text(liveinfo["uv"] + '人');
 							$(".anchorheadimg img").attr("src", indexitem["logo"]["logoimg"]);
 
-							
 							$.smartScroll($(".container"), '.content-slide');
 							applicationInit.resizePlayer();
 							$(".player-wrapper").css("backgroundImage", "url(" + liveinfo["bakimg"] + ")");
@@ -1141,8 +1188,8 @@ var xtAPI = function () {
 								$("#iosDialog1").fadeOut(200);
 							});
 							$(".weui-dialog__btn_primary").click(function () {
-								localStorage.setItem("isChooseLogined", 1);
-								window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newlive/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+								
+								window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 							});
 						});
 					}
@@ -1164,7 +1211,7 @@ var xtAPI = function () {
 				success: function success(d) {
 					// checkSession(d["code"]);
 					if (d["code"] == 1013) {
-						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newlive/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 					} else {
 						xtAPI.liveInfo = d["data"];
 						resolve(xtAPI.liveInfo);
@@ -1187,7 +1234,7 @@ var xtAPI = function () {
 				success: function success(d) {
 					// checkSession(d["code"]);
 					if (d["code"] == 1013) {
-						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newlive/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
 					} else {
 						xtAPI.liveInfo = d["data"];
 						resolve(xtAPI.liveInfo);
@@ -1206,9 +1253,9 @@ var xtAPI = function () {
 				url: commonUrl + 'newliveshop/mGoods/getGoodsList.do',
 				type: 'post',
 				dataType: 'json',
-				data: { "liveId": request["liveid"]},
+				data: { "liveId": request["liveid"] },
 				success: function success(d) {
-					resolve(d["data"]);
+					resolve(d["data"]["list"]);
 				}
 			});
 		});

@@ -15,6 +15,17 @@
     <script type="text/javascript">jwplayer.key="lsUqQ+PB1edH+bYoMb85Yr5CuPlXyhK/ngcyNQ==";</script>-->
 </head>
 <body>
+    <div class="js_dialog" id="iosDialog1" style="display: none;">
+        <div class="weui-mask"></div>
+        <div class="weui-dialog">
+            <div class="weui-dialog__hd"><strong class="weui-dialog__title">确认登录</strong></div>
+            <div class="weui-dialog__bd">将跳转到微信登录界面，以参与更多直播互动</div>
+            <div class="weui-dialog__ft">
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+                <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+            </div>
+        </div>
+    </div>
     <div class="downmask">
         <img src="images/downmask.png" alt="">
     </div>
@@ -22,7 +33,7 @@
     <div id="top">
         <!--暂无视频-->
         <!-- <div id="shadow"></div> -->
-        <img src="images/playicon.jpg" class="user_pic bg_user_pic" style="width: 100%; display: none;">
+        <img src="images/playicon.jpg" class="playbtn">
         <!--暂无视频结束-->
         <div class="player">
             <div id='container'>
@@ -55,10 +66,10 @@
             </div>
         </div>
         <div id="pro-list">
-            <div class="pro-list-tit"><img src="images/showlistbtn.png" alt=""> 全部宝贝</div>
+            <div class="pro-list-tit"><img src="images/showlistbtn.png" alt=""> 全部宝贝 <span class="fr">x</span></div>
             <div class="prolist-wrapper">
                 <ul>
-                    <li>
+                    <!-- <li>
                         <div class="proimg">
                             <img src="images/proimg.png" class="" alt="">
                         </div>
@@ -67,14 +78,14 @@
                             <div class="pn">
                                 <span class="price">¥ 36.98</span>
                                 <div class="ctrlnums">
-                                    <!-- <img src="images/minus.png" alt="">
+                                    <img src="images/minus.png" alt="">
                                     <input type="number" name="nums" value="1" />
-                                    <img src="images/add.png" alt=""> -->
+                                    <img src="images/add.png" alt="">
                                     <a href="" class="btn btn-buy">马上购买</a>
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                  
                 </ul>
             </div>
@@ -97,15 +108,15 @@
                 </ul><div id="sth"></div>
             </div>
         </div>
-        <div class="recommend_product">
-            <div class="proimg">
+        <a href="" class="recommend_product">
+            <!-- <div class="proimg">
                 <img src="images/proimg.png" alt="">
             </div>
             <div class="proinfo">
                 <div class="tit">2017年新款雪纺裙</div>
                 <div class="price">¥69.90 <span>¥199.90</span></div>
-            </div>
-        </div>
+            </div> -->
+        </a>
      </div>
     </div>
     <img src="images/playicon.jpg" class="bobo">
@@ -118,8 +129,6 @@
     <script src='js/webim/websdk-1.4.7.js'></script>
     <script src='js/webim/xtwebim-c.js'></script>
     <script src='js/module_c.js?v=1.0.7'></script>
-    
-    <script src="http://cdn.aodianyun.com/lss/aodianplay/player.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script src="layui/layui.js"></script>
     <script src='js/qiniu/bower_components/plupload/js/moxie.js'></script>
