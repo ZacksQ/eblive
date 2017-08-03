@@ -340,9 +340,18 @@ var xtAPI = function () {
 	var wechatlogin = function wechatlogin() {
 
 		var isMobile = /Mobile/i.test(navigator.userAgent);
+		var ispcterminal = /pcvideo/i.test(window.location.pathname);
+
 		if(!isMobile){
-			window.location.href="pcvideo.html";
+			window.location.href="pcvideo.html?liveid=" + xtAPI.request["liveid"];
 		}
+		// else{
+		// 	if(localStorage.getItem("isChooseLogined")==1){
+		// 		window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + xtAPI.request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + xtAPI.from + "#wechat_redirect";
+		// 	}else{
+		// 		window.location.href="index.html?liveid=" + xtAPI.request["liveid"]
+		// 	}
+		// }
 
 		Date.prototype.Format = function (fmt) {
 			//日期格式化处理
@@ -794,7 +803,7 @@ var xtAPI = function () {
 								            '</div>'+
 								            '<div class="proinfo">'+
 								                '<div class="tit">' + giftlist[0]["shop_name"] + '</div>'+
-								                '<div class="price">¥' +  Number(giftlist[i]["price"]).toFixed(2) + '</div>'+
+								                '<div class="price">¥' +  Number(giftlist[0]["price"]).toFixed(2) + '</div>'+
 								            '</div>');
 										for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
 											$(".prolist-wrapper ul").append('<li>'+
@@ -1250,7 +1259,7 @@ var xtAPI = function () {
 	var giftlist = function giftlist() {
 		return new Promise(function (resolve) {
 			$.ajax({
-				url: commonUrl + 'newliveshop/mGoods/getGoodsList.do',
+				url: commonUrl + 'newliveshop/tGoods/getGoodsList.do',
 				type: 'post',
 				dataType: 'json',
 				data: { "liveId": request["liveid"] },
