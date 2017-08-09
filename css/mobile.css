@@ -220,9 +220,10 @@ em,i {
 .video-discuss-like:focus,.video-discuss-like:hover {
 	background-image:url(../img/like_hover.png)
 }
+.playbtn{ position: fixed; width: 100px; top: -30%; bottom:0; left: 0; right: 0; z-index: 99; margin: auto}
 .video-discuss-form {
 	/*height:40px;*/
-	background:url(../img/form-back.png);
+	/*background:url(../img/form-back.png);*/
 	padding:8px 12px 10px 8px;
 	position: absolute;
     bottom: 5px;

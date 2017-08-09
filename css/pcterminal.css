@@ -22,23 +22,26 @@ body{ /*background: url(../images/banner.jpg) no-repeat center; background-size:
 .tit-wrapper:after,.product-box .topbar:after,.product-pn:after{ content: ''; display: block; visibility: hidden; clear: both;}
 .td .date{ color: #a2a2a2; font-size: 14px;margin-top: 3px;}
 .customer-num{ color: #6aa2ed; margin-left: 10px;}
-.abl .logo{ margin-right: 12px;}
+.abl .logo{ margin-right: 12px; width: 50px; height: 50px; overflow: hidden;}
+.abl .logo img{ width: 100%;}
 .abl .td{ width: 300px; font-size: 16px; margin-top: 4px; }
 .bymobile{ color: #6aa2ed; text-align: center; font-size: 12px; cursor: pointer;}
 .discuss-pannel{ background-color: #f9f9f9; overflow: hidden; padding-bottom: 6px;}
 .ctrl-box{width: 90%; margin: 6px auto; }
-#discuss-input{ background-color: #f3f3f3; border: 0 none; outline: 0; resize: none; border-radius: 10px; display: block; width: 100%; margin-bottom: 6px;}
+#msg-input{ background-color: #f3f3f3; border: 0 none; outline: 0; resize: none; border-radius: 10px; display: block; width: 100%; margin-bottom: 6px;}
 .wechatlogin{ width: 24px; height: 24px; background: url(../images/weixin.png) no-repeat left top; display: inline-block; vertical-align: middle; margin-top: 3px; margin-right: 10px;}
-.cost{ height: 40px; font-size: 14px; line-height: 40px;position: absolute; right: 24px; top: 10px}
-.btn-cost{ background-color: #ff2626;  border-radius: 15px; line-height: 30px; height: 30px; color: #fff; width: 70px; }
+.cost{ height: 40px; font-size: 12px; line-height: 40px;position: absolute; right: 24px; top: 10px}
+.btn-cost{ background-color: #ff2626;  border-radius: 15px; line-height: 30px; height: 30px; color: #fff;/* width: 70px; */}
 .cost span{ color: #ff2626; font-size: 16px; margin: 0 5px;}
 .product-box .topbar{ padding: 16px 0 16px 24px; border-bottom: 2px solid #ddd; position: relative;}
 .product-list{ padding: 34px 64px 50px;}
 .product-list .product-item{ width: 24%; font-size: 12px; background-color: #f5f5f5; padding-bottom: 10px; float: left; margin: 0 .5% 10px;}
 .product-list .product-item .product-img{ width: 100%;}
 .product-list .product-item .product-img img{  width: 100%;}
-.product-pn .product-price{ color: #ef2323; font-size: 16px;}
-.product-pn .choose-num{float: right; width: 70px; margin-top: 1.5px;}
+.product-pn .product-price{ color: #ef2323; font-size: 16px; display: inline-block; margin-top: 5px;}
+.product-pn .choose-num{float: right; /*width: 70px; */margin-top: 1.5px;}
 .product-pn .choose-num input{ width: 34px; vertical-align: top; border-left: 0; border-right: 0; border-top: 1px solid #ccc;border-bottom: 1px solid #ccc; height: 18px; line-height: 18px; text-align: center;}
 .product-item .product-tit{ margin-bottom: 15px;}
-.product-item .product-pn,.product-item .product-tit{ padding: 0 12px;}
+.product-item .product-pn,.product-item .product-tit{ padding: 0 12px;  height: 32px;}
+.product-box .topbar .tit{line-height: 32px;}
+.live-video {height:calc(100% - 104px);}
