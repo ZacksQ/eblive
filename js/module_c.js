@@ -124,6 +124,7 @@ var handleControl = function () {
 		// player = document.createElement("video");
 		player.setAttribute("src", xtAPI.liveInfo["data"]["liveopen"] ? 'http://27046.hlsplay.aodianyun.com/devnewlive2016/' + xtAPI.liveInfo["data"]["stream"] + '.m3u8' : xtAPI.liveInfo["data"]["m3u8"]);
 		player.style.background = "url(" + xtAPI.liveInfo["data"]["bakimg"] + ") no-repeat center";
+		// player.style.backgroundColor = "#000"
 		player.style.backgroundSize = "cover";
 		player.setAttribute("playsinline", true);
 		// player.setAttribute("controls", "controls");
@@ -147,9 +148,7 @@ var handleControl = function () {
 				player.style.height = window.innerHeight + "px";
 				// player.style["object-position"]= "0px 0px";				
 			};
-			player.addEventListener("x5videoenterfullscreen", function () {
-
-				
+			player.addEventListener("x5videoenterfullscreen", function () {				
 				$("body").addClass("androidfull androidpo");
 				player.style.background = "#000";
 			});
@@ -167,6 +166,8 @@ var handleControl = function () {
 			document.querySelector("video").addEventListener("loadedmetadata", function () {
 				//safari中直接执行
 				$(".player-wrapper").css("height", "auto");
+				// alert(document.querySelector("video").style.width)
+				// alert(document.querySelector("video").style.height)
 			}, false);
 		} else {
 			document.querySelector("video").addEventListener("play", function () {
@@ -298,7 +299,9 @@ var applicationInit = function () {
 
 	//容器尺寸控制
 	var resizePlayer = function resizePlayer() {
-		$("#player video").css("height", $(window).height() + 'px');
+		// alert(window.innerWidth)
+		$("#player video").css("width", window.innerWidth);
+		// $("#player video").css("height", $(window).height() + 'px');
 	};
 
 	var scrollIntoView = function scrollIntoView() {
@@ -774,7 +777,7 @@ var xtAPI = function () {
 										$(".live-items .hd li:first").addClass("active");
 
 										applicationInit.resizePlayer();
-										// $.smartScroll($(".container"), '.content-slide');
+										$.smartScroll($("#top"), '.scollelement');
 										$(".player-wrapper").css("backgroundImage", "url(" + liveinfo["bakimg"] + ")");
 										var timecountend = indexitem["timer"]["timecountend"];
 										if (liveinfo["liveopen"] == 0 && liveinfo["videoopen"] == 0) {
@@ -1027,11 +1030,13 @@ var xtAPI = function () {
 				}
 			});
 		} else {
+			var isWeixin = /MicroMessenger/i.test(navigator.userAgent);
 			// $(".callfunctionbtn").hide();
-			if (localStorage.getItem("isChooseLogined")) {
+			if (localStorage.getItem("isChooseLogined") && isWeixin) {
 				window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
 				return;
 			}
+			 
 			$.ajax({
 				url: commonUrl + 'newliveshop/stemp/getChannelAuth.do',
 				type: 'post',
@@ -1157,7 +1162,7 @@ var xtAPI = function () {
 							$(".numcount").text(liveinfo["uv"] + '人');
 							$(".anchorheadimg img").attr("src", indexitem["logo"]["logoimg"]);
 
-							$.smartScroll($(".container"), '.content-slide');
+							$.smartScroll($("#top"), '.discuss-pannel');
 							applicationInit.resizePlayer();
 							$(".player-wrapper").css("backgroundImage", "url(" + liveinfo["bakimg"] + ")");
 							$(".numcount").text(liveinfo["uv"] + '人');
@@ -1198,7 +1203,15 @@ var xtAPI = function () {
 							});
 							$(".weui-dialog__btn_primary").click(function () {
 								
-								window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+								if(!isWeixin){
+								 	layui.use(['layer'], function () {
+										layer.msg("请在微信中打开授权");
+									});
+								 	// return;
+								 }else{
+								 	localStorage.setItem("isChooseLogined", 1);
+								window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newlive/web/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+								 }
 							});
 						});
 					}

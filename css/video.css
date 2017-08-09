@@ -1,4 +1,5 @@
 body{-webkit-overflow-scrolling: touch;overflow-scrolling: touch;font-family: helvetica;background-color: #eceef3; max-width: 640px; margin: 0 auto;}
+html,body,#top,#player,#container,.player{ height: 100%;overflow: hidden;}
         *{padding: 0px;margin: 0px;-webkit-overflow-scrolling: touch;}
         #top{width: 100%;position: relative;font-size: 0;}
         #bestTop{width:100%;height:70px;position: fixed;left: 0px;top:0px;background: rgba(2,0,19,0.6);z-index: 15; color: #fff;}

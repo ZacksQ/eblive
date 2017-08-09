@@ -464,18 +464,7 @@ var xtAPI = function () {
 			if (request["state"] != "STATE" && request["state"] != "") {
 				postdata.inviter = request["state"];
 				postdata.liveid = request["liveid"];
-			}
-			this.from = request["from"];
-			switch (this.from) {
-				case "singlemessage":
-					this.from = 3;
-					break;
-				case "timeline":
-					this.from = 2;
-					break;
-				default:
-					this.from = 1;
-					break;
+				postdata.type = "webapp";
 			}
 
 			$.ajax({
@@ -491,216 +480,6 @@ var xtAPI = function () {
 							// resolve(xtAPI.user);
 							Promise.all([xtAPI.liveInfo()]).then(function (result) {
 								console.log("result:", result); //用户信息返回
-								// var user = result[0],
-								var watchtype = result[0]["auth"]["authwatch"];
-								var defaultmask = 'images/authbg.png';
-
-								if (watchtype == 0) {
-									if (result[0]["auth"]["leaderimgOpen"] != 0) {
-										//欢迎页
-										$(".welcome").css("backgroundImage", "url(" + result[0]["auth"]["leaderimg"] + ")").show();
-										$(".welcome .skip span").click(function () {
-											$(".welcome").fadeOut(1000);
-										});
-										var welcome_countdown = null,
-										    welcome_second = 3;
-										var welcome_countdown = setInterval(function () {
-											if (welcome_second > 0) {
-												$(".welcome .skip span").text(--welcome_second);
-											} else {
-												clearInterval(welcome_countdown);
-											}
-										}, 1000);
-										setTimeout(function () {
-											$(".welcome").fadeOut(1000);
-										}, 3000);
-									}
-									initLiving();
-								} else {
-									if (result[0]["auth"]["leaderimgOpen"] != 0) {
-										$(".auth-mask").css("backgroundImage", "url(" + result[0]["auth"]["leaderimg"] + ")");
-									} else {
-										$(".auth-mask").css("backgroundImage", "url(" + defaultmask + ")");
-									}
-
-									console.log('showmodel'); //授权观看
-									$(".auth-model-text").text(result[0]["auth"]["authtitle"]);
-									var ajaxurl = '';
-									postdata = { liveid: request["liveid"] };
-									var count_down, tsetcountd;
-
-									(function () {
-										$(".loading").fadeOut();
-										switch (watchtype) {
-											case 1:
-												$(".auth-model-body").prepend('<div>' + '<input type="text" placeholder="请输入直播密码" name="password">' + '</div>');
-												ajaxurl = 'newliveshop/tLivechannel/loadChannelByPwd.do';
-
-												break;
-											case 2:
-												$(".auth-model-body").prepend('<div>' + '<input type="tel" placeholder="输入你的手机号" name="telphone">' + '</div>' + '<div>' + '<input type="text" id="code" placeholder="输入短信验证码"><button class="btn-default getcode">获取验证码</button>' + '</div>');
-												count_down = 50;
-												tsetcountd = null;
-
-												// function countDownSendCode(){
-												//   if(count_down>0){
-												//     $(".getcode").text("重发("+count_down+"s)");
-												//     count_down--;
-												//   }else{
-												//     clearInterval(tsetcountd);
-												//     $(".getcode").text("获取验证码");
-												//     $(".getcode").bind("click",sendCode);     
-												//     count_down=50;   
-												//   }
-												// }
-
-												var sendCode = function sendCode() {
-													var phone = $("input[name=telphone]").val();
-													layui.use(['layer'], function () {
-														var rg = new RegExp(/^[1]+[3,4,5,7,8]+\d{9}$/);
-														if (!rg.test(phone)) {
-															layer.msg("请输入正确的手机号");
-															return false;
-														}
-														$(".getcode").unbind("click");
-
-														$.ajax({
-															url: xtAPI.commonUrl + 'newliveshop/tLivechannel/sendCodeBeforeLoad.do',
-															type: 'post',
-															data: { liveid: request["liveid"], phone: phone },
-															dataType: 'json',
-															success: function success(d) {
-																if (d["success"]) {
-																	layer.msg("验证码已发送");
-																	tsetcountd = setInterval(function () {
-																		if (count_down > 0) {
-																			$(".getcode").text("重发(" + count_down + "s)");
-																			count_down--;
-																		} else {
-																			clearInterval(tsetcountd);
-																			$(".getcode").text("获取验证码");
-																			$(".getcode").bind("click", sendCode);
-																			count_down = 50;
-																		}
-																	}, 1000);
-																} else {
-																	layer.msg("验证码发送失败，请稍后再试");
-																	$(".getcode").bind("click", sendCode);
-																}
-															}
-														});
-													});
-												};
-
-												$(".getcode").bind("click", sendCode);
-												ajaxurl = 'newliveshop/tLivechannel/loadChannelByPhone.do';
-
-												break;
-											case 3:
-												$(".auth-model-body").prepend('<div class="redtip">' + '本次直播需支付' + (result[0]["auth"]["paymoneyint"] / 100).toFixed(2) + '元' + '</div>');
-												$(".watchlive").text("付费观看");
-												break;
-
-										}
-										var liveinfo = result[0]["data"];
-										share.tit = liveinfo["sharetitle"] ? liveinfo["sharetitle"] : liveinfo["channelname"];
-										share.des = liveinfo["sharecontent"] ? liveinfo["sharecontent"] : share.des;
-										share.timelinesharecontent = liveinfo["timelinesharecontent"] ? liveinfo["timelinesharecontent"] : share.timelinesharecontent;
-										if (liveinfo["shareimg"]) {
-											share.img = liveinfo["shareimg"];
-											// $(".anchorheadimg").html(`<img src="${indexitem["logo"]["logoimg"]}" alt="" class="response">`);
-										}
-										xtAPI.getWxsign();
-									})();
-
-									$(".auth-model-tit").text(result[0]["auth"]["authtitle"]);
-									$("#auth-wrapper").show();
-									if (watchtype == 4) {
-										$("#auth-wrapper").hide();
-										if (result[0]["auth"]["leaderimgOpen"] != 0) {
-											//欢迎页
-											$(".welcome").css("backgroundImage", "url(" + result[0]["auth"]["leaderimg"] + ")").show();
-											$(".welcome .skip span").click(function () {
-												$(".welcome").fadeOut(1000);
-											});
-											var welcome_countdown = null,
-											    welcome_second = 3;
-											var welcome_countdown = setInterval(function () {
-												if (welcome_second > 0) {
-													$(".welcome .skip span").text(--welcome_second);
-												} else {
-													clearInterval(welcome_countdown);
-												}
-											}, 1000);
-											setTimeout(function () {
-												$(".welcome").fadeOut(1000);
-											}, 3000);
-										}
-										xtAPI.liveInfo = result[0];
-										initLiving();
-									}
-									$(".watchlive").click(function () {
-										if (watchtype == 3) {
-											//付费观看预支付
-											$.ajax({
-												url: xtAPI.commonUrl + 'newliveshop/tLivechannel/buyChannelBefore.do',
-												dataType: 'json',
-												type: 'post',
-												data: { liveId: request["liveid"] },
-												success: function success(d) {
-													var jsondata = d["data"];
-													wxPay.brandwcpayrequest["package"] = jsondata["package"];
-													wxPay.brandwcpayrequest["paySign"] = jsondata["paySign"];
-													wxPay.brandwcpayrequest["timeStamp"] = jsondata["timeStamp"];
-													wxPay.brandwcpayrequest["nonceStr"] = jsondata["nonceStr"];
-													WeixinJSBridge.invoke('getBrandWCPayRequest', wxPay.brandwcpayrequest, function (res) {
-														// alert(res.err_msg)
-														// if (res.errMsg == "getBrandWCPayRequest:fail,没有此SDK或暂不支持此SDK模拟") {
-														if (res.err_msg == "get_brand_wcpay_request:ok") {
-															$.ajax({
-																url: xtAPI.commonUrl + 'newliveshop/tLivechannel/loadChannelByFee.do',
-																dataType: 'json',
-																type: 'post',
-																data: postdata,
-																success: function success(d) {
-																	if (d["success"]) {
-																		$("#auth-wrapper").hide();
-																		xtAPI.liveInfo = d;
-																		initLiving();
-																	} else {
-																		layui.use(['layer'], function () {
-																			layer.msg("验证失败");
-																		});
-																	}
-																}
-															});
-														} // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-													});
-												}
-											});
-										} else {
-											postdata.code = $("#code").val();
-											postdata.watchpwd = $("input[name=password]").val();
-											$.ajax({
-												url: xtAPI.commonUrl + ajaxurl,
-												dataType: 'json',
-												type: 'post',
-												data: postdata,
-												success: function success(d) {
-													if (d["success"]) {
-														$("#auth-wrapper").hide();
-														xtAPI.liveInfo = d;
-														initLiving();
-													} else {
-														layui.use(['layer'], function () {
-															layer.msg("验证失败");
-														});
-													}
-												}
-											});
-										}
-									});
-								}
 
 								function initLiving() {
 									localStorage.setItem("isChooseLogined", 1);//跳转成功后再标记
@@ -714,18 +493,6 @@ var xtAPI = function () {
 
 										var _request = xtAPI.request;
 
-										share.tit = liveinfo["sharetitle"] ? liveinfo["sharetitle"] : liveinfo["channelname"];
-										document.title = liveinfo["channelname"];
-										$(".livename").text(liveinfo["channelname"]);
-										var $body = $('body');
-										var $iframe = $('<iframe style="display:none" src="images/sharelogo.png"></iframe>');
-										$iframe.on('load', function () {
-											setTimeout(function () {
-												$iframe.off('load').remove();
-											}, 0);
-										}).appendTo($body);
-										share.des = liveinfo["sharecontent"] ? liveinfo["sharecontent"] : share.des;
-										share.timelinesharecontent = liveinfo["timelinesharecontent"] ? liveinfo["timelinesharecontent"] : share.timelinesharecontent;
 										// share.img = liveinfo["shareimg"];
 										applicationInit.init();
 										handleControl.playprop.width = liveinfo["width"];
@@ -747,12 +514,6 @@ var xtAPI = function () {
 										}
 										// }
 
-
-										if (liveinfo["advopen"] && indexitem["adv"].length != 0) {
-											$(".adv").html('<a href="' + indexitem["adv"][0]["advurl"] + '"><img src="' + indexitem["adv"][0]["advtitle"] + '" class="response" alt=""></a>');
-										} else {
-											$(".adv").remove();
-										}
 										if (liveinfo["chatcheck"] == 1) {
 											chatCheck = true;
 											$(".discuss-input #msg-input").attr({ "readonly": false, "placeholder": '弹幕审核已开启' });
@@ -766,26 +527,7 @@ var xtAPI = function () {
 										applicationInit.resizePlayer();
 										// $.smartScroll($(".container"), '.content-slide');
 										$(".player-wrapper").css("backgroundImage", "url(" + liveinfo["bakimg"] + ")");
-										var timecountend = indexitem["timer"]["timecountend"];
-										if (liveinfo["liveopen"] == 0 && liveinfo["videoopen"] == 0) {
-											$(".countdown-label").hide();
-											$(".countdown-label").text("直播已结束");
-											if (liveinfo["timecountopen"] != 1) {
-												$(".countdown-wrapper").hide();
-											} else {
-												if (timecountend > 0) handleControl.formatSeconds(timecountend);
-											}
-										} else {
-											if (liveinfo["timecountopen"] != 1 || timecountend < 0) {
-												handleControl.showPlayer();
-												// $(".countdown").hide();
-											} else {
-												// console.log("调用倒计时");									
-												handleControl.formatSeconds(timecountend);
-												// setInterval(function(){										
-												// },1000);
-											}
-										}
+										
 										if(giftlist.length > 0){
 											
 										for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
@@ -806,16 +548,6 @@ var xtAPI = function () {
 							                    '</div>');
 										}
 									}
-										$(".money-choose li:first").addClass("money-selected");
-
-										$(".money-choose li").click(function () {
-											var _this = $(this);
-											$(".money-choose li[class=money-selected]").removeClass("money-selected");
-											_this.addClass("money-selected");
-											if (_this.attr("data-gift-id") == 6) {
-												$(".redpacked-xll-body").addClass("showcustom");
-											}
-										});
 
 										$(".sendbtn").click(function () {
 											easemob.sendToAPI($("#msg-input").val(), 1);
@@ -841,173 +573,15 @@ var xtAPI = function () {
 											}
 											easemob.initWEBIM();
 										});
-
-										var functions = indexitem["function"];
-										for (var i = 0; i < functions.length; i++) {
-											switch (functions[i]["functiontype"]) {
-												case 1:
-													$(".tocustomer").show();
-													break;
-												case 3:
-													$(".redpacket-l").show();
-													break;
-											}
-										}
-										// }
-										// catch(e){
-										// alert(e)
-										// }
-
-										//检查上传的照片格式是否正确
-										function checkFileType(dom) {
-											var rt = false;
-											layui.use(['layer'], function () {
-												var layer = layui.layer;
-												var filePath = dom.value;
-												if (filePath) {
-													var extname = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length).toLowerCase();
-													if (extname != "bmp" && extname != "jpg" && extname != "gif" && extname != "png" && extname != "jpeg") {
-														layer.msg("只能上传照片");
-														rt = false;
-													} else {
-														if (dom.files[0].size / 1024 > 15000) {
-															layer.msg("图片不能大于15M");
-															rt = false;
-														}
-														rt = true;
-													}
-												} else {
-													//     //layer.msg("请上传照片");
-													rt = false;
-												}
-											});
-											return rt;
-										}
-
-										$("input[name='sendpic']").change(function () {
-											var pic = $("input[name='sendpic']");
-											if (checkFileType(pic[0])) {
-												layui.use(['layer'], function () {
-													layer.open({
-														title: '发送图片',
-														area: ['80%', '80%'],
-														content: '<div style="justify-content: center;display: flex;align-items: center;height: 100%; margin-bottom:0"><img src="" id="previewsend" /></div>'
-														// ,content: `<div style="justify-content: center;display: flex;align-items: center;height: 100%; margin-bottom:0"><img src="" id="previewsend" /></div>`
-														, closeBtn: 0,
-														btn: ['发送', '取消'],
-														yes: function yes(index, layero) {
-															layer.close(index);
-														}
-													});
-												});
-												var oFile = pic[0].files[0];
-												var oReader = new FileReader();
-												oReader.onload = function (e) {
-													$("#previewsend").attr("src", e.target.result);
-												};
-												oReader.readAsDataURL(oFile);
-											}
-										});
-										$(".tocustomer").click(function () {
-											$(".moneysum").val('');
-											$(".redpacked-xll-body").removeClass("showcustom");
-											$("#redpacket-dialog").addClass('show');
-										});
-
-										$(".redpacket-l").click(function () {
-											$("#redpacket-dialog-to-customer").addClass("show");
-										});
-
+									
 										document.querySelector(".discuss-pannel").addEventListener("scroll", handleControl.showhistorytop10, false);
 
-										var getoken = new Promise(function (resolve) {
-											$.post(xtAPI.commonUrl + "newliveshop/mImhistory/getImgUptoken.do", function (d) {
-												qiniu_token = d["data"]["uptoken"];
-												var uploader = Qiniu.uploader({
-													runtimes: 'html5,flash,html4', // 上传模式,依次退化
-													browse_button: 'pickfiles', // 上传选择的点选按钮，**必需**
-													// 在初始化时，uptoken, uptoken_url, uptoken_func 三个参数中必须有一个被设置
-													// 切如果提供了多个，其优先级为 uptoken > uptoken_url > uptoken_func
-													// 其中 uptoken 是直接提供上传凭证，uptoken_url 是提供了获取上传凭证的地址，如果需要定制获取 uptoken 的过程则可以设置 uptoken_func
-													uptoken: qiniu_token, // uptoken 是上传凭证，由其他程序生成
-													// uptoken_url: '/uptoken',         // Ajax 请求 uptoken 的 Url，**强烈建议设置**（服务端提供）
-													// uptoken_func: function(file){    // 在需要获取 uptoken 时，该方法会被调用
-													//    // do something
-													//    return uptoken;
-													// },
-													get_new_uptoken: false, // 设置上传文件的时候是否每次都重新获取新的 uptoken
-													// downtoken_url: '/downtoken',
-													// Ajax请求downToken的Url，私有空间时使用,JS-SDK 将向该地址POST文件的key和domain,服务端返回的JSON必须包含`url`字段，`url`值为该文件的下载地址
-													unique_names: true, // 默认 false，key 为文件名。若开启该选项，JS-SDK 会为每个文件自动生成key（文件名）
-													// save_key: true,                  // 默认 false。若在服务端生成 uptoken 的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
-													domain: 'http://img.xiangtazhibo.com/', // bucket 域名，下载资源时用到，如：'http://xxx.bkt.clouddn.com/' **必需**
-													// container: 'container',             // 上传区域 DOM ID，默认是 browser_button 的父元素，
-													max_file_size: '100mb', // 最大文件体积限制
-													flash_swf_url: 'path/of/plupload/Moxie.swf', //引入 flash,相对路径
-													max_retries: 3, // 上传失败最大重试次数
-													dragdrop: false, // 开启可拖曳上传
-													drop_element: 'container', // 拖曳上传区域元素的 ID，拖曳文件或文件夹后可触发上传
-													chunk_size: '4mb', // 分块上传时，每块的体积
-													auto_start: true, // 选择文件后自动上传，若关闭需要自己绑定事件触发上传,
-													multi_selection: false,
-													//x_vars : {
-													//    自定义变量，参考http://developer.qiniu.com/docs/v6/api/overview/up/response/vars.html
-													//    'time' : function(up,file) {
-													//        var time = (new Date()).getTime();
-													// do something with 'time'
-													//        return time;
-													//    },
-													//    'size' : function(up,file) {
-													//        var size = file.size;
-													// do something with 'size'
-													//        return size;
-													//    }
-													//},
-													init: {
-														'FilesAdded': function FilesAdded(up, files) {
-															plupload.each(files, function (file) {
-																// 文件添加进队列后,处理相关的事情
-															});
-														},
-														'BeforeUpload': function BeforeUpload(up, file) {
-															// 每个文件上传前,处理相关的事情
-														},
-														'UploadProgress': function UploadProgress(up, file) {
-															// 每个文件上传时,处理相关的事情
-														},
-														'FileUploaded': function FileUploaded(up, file, info) {
-															// 每个文件上传成功后,处理相关的事情
-															// 其中 info 是文件上传成功后，服务端返回的json，形式如
-															// {
-															//    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
-															//    "key": "gogopher.jpg"
-															//  }
-															// 参考http://developer.qiniu.com/docs/v6/api/overview/up/response/simple-response.html
-
-															var domain = up.getOption('domain');
-															var res = $.parseJSON(info);
-															var sourceLink = domain + res.key; //获取上传成功后的文件的Url
-															easemob.sendToAPI(sourceLink, 7);
-															$(".function-menu").removeClass("showfuntion");
-														},
-														'Error': function Error(up, err, errTip) {
-															//上传出错时,处理相关的事情
-														},
-														'UploadComplete': function UploadComplete() {
-															//队列文件处理完毕后,处理相关的事情
-														}
-													}
-												});
-											});
-										});
+						
 									});
 								}
 								//promise end
 							});
-						} else {
-						// resolve(false);
-						window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
-					}
+						} 
 				}
 			});
 		} else {
@@ -1016,6 +590,7 @@ var xtAPI = function () {
 				window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
 				return;
 			}
+			$(".wechatlogin").attr("href","https://open.weixin.qq.com/connect/qrconnect?appid=wx374982dd7f263bc0&redirect_uri=http://jcs.xiangtazhibo.com/newliveshop/eblive/pcvideo.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect");
 			$.ajax({
 				url: commonUrl + 'newliveshop/stemp/getChannelAuth.do',
 				type: 'post',

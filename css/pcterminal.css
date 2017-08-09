@@ -22,7 +22,8 @@ body{ /*background: url(../images/banner.jpg) no-repeat center; background-size:
 .tit-wrapper:after,.product-box .topbar:after,.product-pn:after{ content: ''; display: block; visibility: hidden; clear: both;}
 .td .date{ color: #a2a2a2; font-size: 14px;margin-top: 3px;}
 .customer-num{ color: #6aa2ed; margin-left: 10px;}
-.abl .logo{ margin-right: 12px;}
+.abl .logo{ margin-right: 12px; width: 50px; height: 50px; overflow: hidden;}
+.abl .logo img{ width: 100%;}
 .abl .td{ width: 300px; font-size: 16px; margin-top: 4px; }
 .bymobile{ color: #6aa2ed; text-align: center; font-size: 12px; cursor: pointer;}
 .discuss-pannel{ background-color: #f9f9f9; overflow: hidden; padding-bottom: 6px;}
