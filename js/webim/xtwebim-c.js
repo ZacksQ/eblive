@@ -183,6 +183,11 @@ var easemob = function () {
         msgnode.setAttribute("data-createtime",ext["sendtime"]);
         var msgp = document.createElement("span"),
             data = message.data || message.msg;
+
+        if(message_type=="buying"){
+            $(".buying").show().find(".customer-name").text(ext["nickname"]);
+            return;
+        }
         switch (message_type) {
             case 1:
                 nicknamediv.appendChild(document.createTextNode(ext["nickname"] || ext["username"]));
@@ -333,7 +338,7 @@ var easemob = function () {
         });
     };
 
-    var sendMsg = function sendMsg(txt) {
+    var sendMsg = function sendMsg(txt, callback) {
         if (txt == "") return false;
         var id = conn.getUniqueId(); // 生成本地消息id
         var msg = new WebIM.message('txt', id); // 创建文本消息
@@ -342,12 +347,14 @@ var easemob = function () {
             to: easemob.roomId, // 接收消息对象(聊天室id)
             roomType: true,
             chatType: 'chatRoom',
-            ext: { "nickname": localStorage.getItem("nickname"), "headimg": localStorage.getItem("headimg") },
+            ext: { "nickname": localStorage.getItem("nickname"), "headimg": localStorage.getItem("headimg"), "type": "buying" },
             success: function success() {
-                console.log('send room text success');
-                applicationInit.scrollIntoView();
-                $("#msg-input").val('');
-                $(".discuss-input-pannel").removeClass("showemoji");
+                callback()
+                // console.log('send room text success');
+                // applicationInit.scrollIntoView();
+                // $("#msg-input").val('');
+                // $(".discuss-input-pannel").removeClass("showemoji");
+                // $(".buying").show();
             },
             fail: function fail() {
                 console.log('failed');

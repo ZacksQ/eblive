@@ -824,7 +824,18 @@ var xtAPI = function () {
 					                        '</div>'+
 					                    '</li>');
 										}
+									}else{
+										$(".recommend_product").remove();
 									}
+
+									$(".ctrlnums a").click(function(e){
+										e.preventDefault();
+										var _this = $(this)
+										easemob.sendMsg('在购买的路上',function(){
+											window.location.href=_this.attr("href");
+										});
+										
+									})
 										$(".money-choose li:first").addClass("money-selected");
 
 										$(".money-choose li").click(function () {
@@ -1157,6 +1168,8 @@ var xtAPI = function () {
 					                        '</div>'+
 					                    '</li>');
 										}
+									}else{
+										$(".recommend_product").remove();
 									}
 							// $(".numcount").text('1154人');
 							$(".numcount").text(liveinfo["uv"] + '人');

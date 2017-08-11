@@ -461,11 +461,8 @@ var xtAPI = function () {
 		var postdata = {};
 		if (request["code"]) {
 			postdata.code = request["code"];
-			if (request["state"] != "STATE" && request["state"] != "") {
-				postdata.inviter = request["state"];
 				postdata.liveid = request["liveid"];
 				postdata.type = "webapp";
-			}
 
 			$.ajax({
 				url: commonUrl + 'newliveshop/tUser/wxWeblogin.do',
@@ -474,13 +471,13 @@ var xtAPI = function () {
 				data: postdata,
 				success: function success(d) {
 
-					if (d["success"] == true /*|| localStorage.getItem("userid") != null*/) {
+					// if (d["success"] == true) {
 							xtAPI.user = d["data"];
 							// alert(d["data"]["usercode"])
 							// resolve(xtAPI.user);
 							Promise.all([xtAPI.liveInfo()]).then(function (result) {
 								console.log("result:", result); //用户信息返回
-
+										initLiving()
 								function initLiving() {
 									localStorage.setItem("isChooseLogined", 1);//跳转成功后再标记
 									Promise.all([xtAPI.loadindexitem(), xtAPI.giftlist(), easemob]).then(function (result) {
@@ -581,15 +578,15 @@ var xtAPI = function () {
 								}
 								//promise end
 							});
-						} 
+						// } 
 				}
 			});
 		} else {
 			// $(".callfunctionbtn").hide();
-			if (localStorage.getItem("isChooseLogined")) {
-				window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
-				return;
-			}
+			// if (localStorage.getItem("isChooseLogined")) {
+			// 	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
+			// 	return;
+			// }
 			$(".wechatlogin").attr("href","https://open.weixin.qq.com/connect/qrconnect?appid=wx374982dd7f263bc0&redirect_uri=http://jcs.xiangtazhibo.com/newliveshop/eblive/pcvideo.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect");
 			$.ajax({
 				url: commonUrl + 'newliveshop/stemp/getChannelAuth.do',
