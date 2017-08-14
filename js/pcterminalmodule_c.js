@@ -661,7 +661,7 @@ var xtAPI = function () {
 								share.img = indexitem["logo"]["logoimg"];
 								// $(".anchorheadimg").html(`<img src="${indexitem["logo"]["logoimg"]}" alt="" class="response">`);
 							}
-
+							handleControl.showPlayer();
 							var timecountend = indexitem["timer"]["timecountend"];
 							if (liveinfo["liveopen"] == 0 && liveinfo["videoopen"] == 0) {
 								$(".countdown-label").hide();
