@@ -103,7 +103,7 @@ var handleControl = function () {
 			server: "live",
 			type: "rtmp",
 			// videourl: 'http://27046.hlsplay.aodianyun.com/newlive2016/'+liveconfig["stream"]+'.m3u8',
-			streamurl: 'rtmp://27046.lssplay.aodianyun.com/devnewlive2016/' + xtAPI.liveInfo["data"]["stream"],
+			streamurl: 'rtmp://27046.lssplay.aodianyun.com/newlive2016/' + xtAPI.liveInfo["data"]["stream"],
 			skin: "liveWhite",
 			title: xtAPI.liveInfo["data"]["channelname"],
 			lang: 'zh_CN',
@@ -259,9 +259,9 @@ var applicationInit = function () {
 //应用初始化模块
 var xtAPI = function () {
 
-	var commonUrl = 'http://jcs.xiangtazhibo.com/';
+	var commonUrl = 'http://www.xiangtazhibo.com/';
 
-	var appid = 'wx9e47b80badd07ab2';
+	var appid = 'wxa5af90cb393880b6';
 
 	var request = handleControl.getRequest();
 
