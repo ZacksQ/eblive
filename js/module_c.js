@@ -779,6 +779,7 @@ var xtAPI = function () {
 										applicationInit.resizePlayer();
 										$.smartScroll($("#top"), '.scollelement');
 										$(".player-wrapper").css("backgroundImage", "url(" + liveinfo["bakimg"] + ")");
+										handleControl.showPlayer();
 										var timecountend = indexitem["timer"]["timecountend"];
 										if (liveinfo["liveopen"] == 0 && liveinfo["videoopen"] == 0) {
 											$(".countdown-label").hide();
@@ -1123,6 +1124,7 @@ var xtAPI = function () {
 							}
 
 							var timecountend = indexitem["timer"]["timecountend"];
+							handleControl.showPlayer();
 							if (liveinfo["liveopen"] == 0 && liveinfo["videoopen"] == 0) {
 								$(".countdown-label").hide();
 								$(".countdown-label").text("直播已结束");
