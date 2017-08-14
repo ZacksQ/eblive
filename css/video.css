@@ -103,6 +103,7 @@ html,body,#top,#player,#container,.player{ height: 100%;overflow: hidden;}
         .cl{
             clear: right;
         }
+        
 .weui-dialog__ft {
     position: relative;
     line-height: 48px;
