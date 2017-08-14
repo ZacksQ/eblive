@@ -81,7 +81,7 @@ html,body,#top,#player,#container,.player{ height: 100%;overflow: hidden;}
         .pro-list-tit img{ height: 100%; vertical-align: middle;}
         .proimg{ width: 95px; overflow: hidden;}
         .proinfo{ width: 100%;}
-        .proinfo .tit{ font-size: 14px; color: #000; padding-top: 5px;}
+        .proinfo .tit{ font-size: 14px; color: #000; padding-top: 5px;padding-left: 3px;}
         .proinfo .pn{ padding: 10px 5px 0;}
         .proinfo .pn:after{ content: ''; display: block; clear: both; visibility: hidden;}
         .proinfo .price{ font-size: 18px; color: #f00; display: inline-block; margin-top: 4.5px;}
@@ -96,7 +96,7 @@ html,body,#top,#player,#container,.player{ height: 100%;overflow: hidden;}
         .recommend_product{ display: block; position: absolute; left: 15px; bottom: 70px; height: 50px; background-color: #fff; width: 180px; border-radius: 4px; overflow: hidden; display: flex; display: -webkit-flex}
         .recommend_product img{ height: 100%;}
         .recommend_product .proimg{ overflow: hidden; width: 70px; height: 100%;}
-        .recommend_product .proinfo{ width: 110px; font-size: 14px; }
+        .recommend_product .proinfo{ width: 110px; font-size: 14px; padding-left: 3px;}
         .recommend_product .tit{  overflow: hidden; text-overflow: ellipsis; color: #000; white-space: nowrap;}
         .recommend_product .price{ font-size: 14px;}
         .recommend_product .price span{ font-size: 12px; text-decoration: line-through; color: #555;}
