@@ -112,57 +112,10 @@ var handleControl = function () {
 			autostart: "false",
 			timedisplay: "disable"
 		});
-		// player.setAttribute("src", xtAPI.liveInfo["data"]["liveopen"] ? 'http://27046.hlsplay.aodianyun.com/devnewlive2016/' + xtAPI.liveInfo["data"]["stream"] + '.m3u8' : xtAPI.liveInfo["data"]["m3u8"]);
-		// player.style.background = "url(" + xtAPI.liveInfo["data"]["bakimg"] + ") no-repeat center";
-		// player.style.backgroundSize = "cover";
-		// player.setAttribute("playsinline", true);
-		// // player.setAttribute("controls", "controls");
-		// player.setAttribute("webkit-playsinline", true);
-		// // player.setAttribute("x5-video-player-fullscreen",false);
-		// player.setAttribute("x-webkit-airplay", true);
-		// player.setAttribute("x5-video-player-type", true);
-		// // player.setAttribute("width","100%");
-		// document.getElementById("player").appendChild(player);
-		// document.querySelector("#player video").setAttribute("x5-video-player-type", "h5");
-		// var isAndroid = /Android/i.test(navigator.userAgent);
-		// $(".playbtn").click(function(){
-		// 	$(this).hide();
-		// 	player.play();
-		// });
-		// //安卓全屏模拟
-		// if (isAndroid) {
-		// 	document.querySelector("#player video").setAttribute("x5-video-player-fullscreen", true);
-		// 	window.onresize = function () {
-		// 		player.style.width = window.innerWidth + "px";
-		// 		player.style.height = window.innerHeight + "px";
-		// 		// player.style["object-position"]= "0px 0px";				
-		// 	};
-		// 	player.addEventListener("x5videoenterfullscreen", function () {
-
-				
-		// 		$("body").addClass("androidfull androidpo");
-		// 		player.style.background = "#000";
-		// 	});
-		// 	player.addEventListener("x5videoexitfullscreen", function () {
-		// 		$(".playbtn").show();
-		// 		$("body").removeClass("androidpo");
-		// 		player.style["object-position"] = "0px 0px";
-		// 	});
-		// } else {
-		// 	document.querySelector("#player video").setAttribute("x5-video-player-fullscreen", false);
-		// }
-		// applicationInit.resizePlayer();
-		// var isWeixin = /MicroMessenger/i.test(navigator.userAgent);
-		// if (isWeixin) {
-		// 	document.querySelector("video").addEventListener("loadedmetadata", function () {
-		// 		//safari中直接执行
-		// 		$(".player-wrapper").css("height", "auto");
-		// 	}, false);
-		// } else {
-		// 	document.querySelector("video").addEventListener("play", function () {
-		// 		$(".player-wrapper").css("height", "auto");
-		// 	}, false);
-		// }
+		$(".handleqr").click(function(){
+			$(".wim").toggle();
+		})
+		$(".wim").html('<img src="' + xtAPI.commonUrl + 'newliveshop/im/makeQrcode.do?content=' + xtAPI.commonUrl + 'newliveshop/eblive/index.html?liveid=' + xtAPI.request["liveid"] +'" />');
 
 		applicationInit.scrollIntoView();
 	};
@@ -587,7 +540,7 @@ var xtAPI = function () {
 			// 	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
 			// 	return;
 			// }
-			$(".wechatlogin").attr("href","https://open.weixin.qq.com/connect/qrconnect?appid=wx374982dd7f263bc0&redirect_uri=http://jcs.xiangtazhibo.com/newliveshop/eblive/pcvideo.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect");
+			$(".wechatlogin").attr("href","https://open.weixin.qq.com/connect/qrconnect?appid=wx374982dd7f263bc0&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/pcvideo.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect");
 			$.ajax({
 				url: commonUrl + 'newliveshop/stemp/getChannelAuth.do',
 				type: 'post',

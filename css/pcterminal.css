@@ -45,3 +45,6 @@ body{ /*background: url(../images/banner.jpg) no-repeat center; background-size:
 .product-item .product-pn,.product-item .product-tit{ padding: 0 12px;  height: 32px;}
 .product-box .topbar .tit{line-height: 32px;}
 .live-video {height:calc(100% - 104px);}
+.bymobile{ position: relative;z-index: 99}
+        .bymobile .wim{ position: absolute; width: 140px; background-color: #fff;  height: 140px; padding: 16px; border: 1px solid #6aa2ed; left: calc( -50% - 24px); top: 58px; display: none;}
+        .bymobile .wim img{ width: 100%;}
