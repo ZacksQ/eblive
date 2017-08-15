@@ -726,7 +726,7 @@ var xtAPI = function () {
 										$(".loading").fadeOut();
 
 										var _request = xtAPI.request;
-
+										$(".headimg").attr("href", "https://h5.youzan.com/v2/showcase/homepage?kdt_id="+liveinfo["shop_youzan_id"])
 										share.tit = liveinfo["sharetitle"] ? liveinfo["sharetitle"] : liveinfo["channelname"];
 										document.title = liveinfo["channelname"];
 										$(".livename").text(liveinfo["channelname"]);
@@ -1082,7 +1082,7 @@ var xtAPI = function () {
 							var liveinfo = xtAPI.liveInfo["data"] = result[0],
 							    indexitem = result[1],giftlist = result[2];
 							$(".loading").fadeOut();
-
+							$(".headimg").attr("href", "https://h5.youzan.com/v2/showcase/homepage?kdt_id="+liveinfo["shop_youzan_id"])
 							var _request = xtAPI.request;
 
 							share.tit = liveinfo["sharetitle"] ? liveinfo["sharetitle"] : liveinfo["channelname"];

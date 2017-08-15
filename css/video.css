@@ -44,6 +44,7 @@ html,body,#top,#player,#container,.player{ height: 100%;overflow: hidden;}
         .live-bg{ max-height: 375px; max-width: 100%;}
         .play-btn{width: 20%;position: absolute;left: 40%;top:40%;}
         /*.player{display: none;}*/
+        .headimg{ display: inline-block;}
         .ID{color:#C2CCD1;font-size: 12px;line-height: 18px;}
         .btn-box { width: 100%;height: 46px;bottom:9px;left:0;z-index: 7;position:absolute; font-size: 13px;}
         .user{position: absolute;z-index: 10;left: 0px;top: 16px;}
