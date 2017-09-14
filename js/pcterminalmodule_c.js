@@ -102,8 +102,8 @@ var handleControl = function () {
 		SewisePlayer.setup({
 			server: "live",
 			type: "rtmp",
-			// videourl: 'http://27046.hlsplay.aodianyun.com/newlive2016/'+liveconfig["stream"]+'.m3u8',
-			streamurl: 'rtmp://27046.lssplay.aodianyun.com/newlive2016/' + xtAPI.liveInfo["data"]["stream"],
+			// videourl: 'http://27046.hlsplay.aodianyun.com/newlive2016/'+xtAPI.liveInfo["stream"]+'.m3u8',
+			streamurl: 'rtmp://27046.lsspublish.aodianyun.com/newlive2016/' + xtAPI.liveInfo["data"]["stream"],
 			skin: "liveWhite",
 			title: xtAPI.liveInfo["data"]["channelname"],
 			lang: 'zh_CN',
@@ -626,7 +626,7 @@ var xtAPI = function () {
 								}
 							} else {
 								if (liveinfo["timecountopen"] != 1 || timecountend < 0) {
-									handleControl.showPlayer();
+									// handleControl.showPlayer();
 									// $(".countdown").hide();
 								} else {
 									// console.log("调用倒计时");									
