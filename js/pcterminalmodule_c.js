@@ -99,19 +99,71 @@ var handleControl = function () {
 	};
 
 	var showPlayer = function showPlayer() {
-		SewisePlayer.setup({
-			server: "live",
-			type: "rtmp",
-			// videourl: 'http://27046.hlsplay.aodianyun.com/newlive2016/'+xtAPI.liveInfo["stream"]+'.m3u8',
-			streamurl: 'rtmp://27046.lsspublish.aodianyun.com/newlive2016/' + xtAPI.liveInfo["data"]["stream"],
-			skin: "liveWhite",
-			title: xtAPI.liveInfo["data"]["channelname"],
-			lang: 'zh_CN',
-			poster: xtAPI.liveInfo["data"]["bakimg"],
-			topbardisplay: "disable",
-			autostart: "false",
-			timedisplay: "disable"
-		});
+		// SewisePlayer.setup({
+		// 	server: "live",
+		// 	type: "rtmp",
+		// 	// videourl: 'http://27046.hlsplay.aodianyun.com/newlive2016/'+xtAPI.liveInfo["stream"]+'.m3u8',
+		// 	streamurl: 'rtmp://27046.lsspublish.aodianyun.com/newlive2016/' + xtAPI.liveInfo["data"]["stream"],
+		// 	skin: "liveWhite",
+		// 	title: xtAPI.liveInfo["data"]["channelname"],
+		// 	lang: 'zh_CN',
+		// 	poster: xtAPI.liveInfo["data"]["bakimg"],
+		// 	topbardisplay: "disable",
+		// 	autostart: "false",
+		// 	timedisplay: "disable"
+		// });
+// if(xtAPI.liveInfo["data"]["liveopen"]){
+// 			SewisePlayer.setup({
+// 				server: "live",
+// 				type: "rtmp",
+// 				// videourl: 'http://27046.hlsplay.aodianyun.com/newlive2016/'+xtAPI.liveInfo["stream"]+'.m3u8',
+// 				streamurl: 'rtmp://27046.lssplay.aodianyun.com/newlive2016/' + xtAPI.liveInfo["data"]["stream"],
+// 				skin: "liveWhite",
+// 				title: xtAPI.liveInfo["data"]["channelname"],
+// 				lang: 'zh_CN',
+// 				poster: xtAPI.liveInfo["data"]["bakimg"],
+// 				topbardisplay: "disable",
+// 				autostart: "false",
+// 				timedisplay: "disable"
+// 			});
+// 		}else{
+// 			SewisePlayer.setup({
+// 				server: "vod",
+// 				type: "m3u8",
+// 				//videourl: //'http://27046.lssplay.aodianyun.com/newlive2016/'+xtAPI.liveInfo["stream"]+'.m3u8',
+// 				videourl: xtAPI.liveInfo["data"]["url"],
+// 				// streamurl: 'rtmp://27046.lssplay.aodianyun.com/newlive2016/' + xtAPI.liveInfo["data"]["stream"],
+// 				skin: "vodOrange",
+// 				title: xtAPI.liveInfo["data"]["channelname"],
+// 				lang: 'zh_CN',
+// 				poster: xtAPI.liveInfo["data"]["bakimg"],
+// 				topbardisplay: "disable",
+// 				autostart: "false",
+// 				timedisplay: "disable",
+// 				primary: 'flash'
+// 			});
+// 		}
+if(xtAPI.liveInfo["data"]["liveopen"]){
+			var flashvars={
+		        f:'rtmp://27046.lssplay.aodianyun.com/newlive2016/' + xtAPI.liveInfo["data"]["stream"],
+		        c:0,
+                b:1,
+                p:1,
+                lv:1
+		    };
+		    var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
+    		CKobject.embedSWF('player/ckplayer/ckplayer.swf','live-video','ckplayer_a1','100%','100%',flashvars,params);
+		}else{
+			var flashvars={
+		        a: xtAPI.liveInfo["m3u8"],
+		        f:'player/m3u8.swf',
+		        c:0,
+		        s:4
+		    };
+		    var video=[xtAPI.liveInfo["m3u8"]];
+		     var params={bgcolor:'#FFF',allowFullScreen:true,allowScriptAccess:'always',wmode:'transparent'};
+		    CKobject.embed('player/ckplayer/ckplayer.swf','live-video','ckplayer_a1','100%','100%',false,flashvars,video,params);
+}
 		$(".handleqr").click(function(){
 			$(".wim").toggle();
 		})
@@ -246,6 +298,7 @@ var applicationInit = function () {
 
 	var scrollIntoView = function scrollIntoView() {
 		document.getElementById("sth").scrollIntoView();
+		$("html,body").scrollTop(0)
 	};
 
 	return {
@@ -540,7 +593,7 @@ var xtAPI = function () {
 			// 	window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
 			// 	return;
 			// }
-			$(".wechatlogin").attr("href","https://open.weixin.qq.com/connect/qrconnect?appid=wx374982dd7f263bc0&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/pcvideo.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect");
+			$(".wechatlogin").attr("href","https://open.weixin.qq.com/connect/qrconnect?appid=wx955855da37936955&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/pcvideo.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_login&state=STATE#wechat_redirect");
 			$.ajax({
 				url: commonUrl + 'newliveshop/stemp/getChannelAuth.do',
 				type: 'post',

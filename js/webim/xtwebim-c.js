@@ -150,7 +150,7 @@ var easemob = function () {
             onInviteMessage: function onInviteMessage(message) {}, //处理群组邀请
             onOnline: function onOnline() {}, //本机网络连接成功
             onOffline: function onOffline() {}, //本机网络掉线
-            onError: function onError(message) { console.log(message)}, //失败回调
+            onError: function onError(message) { alert(JSON.stringify(message))}, //失败回调
             onBlacklistUpdate: function onBlacklistUpdate(list) {
                 //黑名单变动
                 //黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
@@ -349,6 +349,7 @@ var easemob = function () {
             chatType: 'chatRoom',
             ext: { "nickname": localStorage.getItem("nickname"), "headimg": localStorage.getItem("headimg"), "type": "buying" },
             success: function success() {
+                // alert('s')
                 callback()
                 // console.log('send room text success');
                 // applicationInit.scrollIntoView();
@@ -357,6 +358,8 @@ var easemob = function () {
                 // $(".buying").show();
             },
             fail: function fail() {
+                alert('fail')
+                // easemob.initWEBIM();
                 console.log('failed');
             }
         };

@@ -136,7 +136,7 @@ var handleControl = function () {
 		document.getElementById("player").appendChild(player);
 		document.querySelector("#player video").setAttribute("x5-video-player-type", "h5");
 		var isAndroid = /Android/i.test(navigator.userAgent);
-		$(".playbtn").click(function(){
+		$(".playbtn").click(function () {
 			$(this).hide();
 			player.play();
 		});
@@ -148,7 +148,7 @@ var handleControl = function () {
 				player.style.height = window.innerHeight + "px";
 				// player.style["object-position"]= "0px 0px";				
 			};
-			player.addEventListener("x5videoenterfullscreen", function () {				
+			player.addEventListener("x5videoenterfullscreen", function () {
 				$("body").addClass("androidfull androidpo");
 				player.style.background = "#000";
 			});
@@ -345,8 +345,8 @@ var xtAPI = function () {
 		var isMobile = /Mobile/i.test(navigator.userAgent);
 		var ispcterminal = /pcvideo/i.test(window.location.pathname);
 
-		if(!isMobile){
-			window.location.href="pcvideo.html?liveid=" + xtAPI.request["liveid"];
+		if (!isMobile) {
+			window.location.href = "pcvideo.html?liveid=" + xtAPI.request["liveid"];
 		}
 		// else{
 		// 	if(localStorage.getItem("isChooseLogined")==1){
@@ -716,7 +716,7 @@ var xtAPI = function () {
 								}
 
 								function initLiving() {
-									localStorage.setItem("isChooseLogined", 1);//跳转成功后再标记
+									localStorage.setItem("isChooseLogined", 1); //跳转成功后再标记
 									Promise.all([xtAPI.loadindexitem(), xtAPI.giftlist(), easemob]).then(function (result) {
 										var liveinfo = xtAPI.liveInfo["data"],
 										    indexitem = result[0],
@@ -726,7 +726,7 @@ var xtAPI = function () {
 										$(".loading").fadeOut();
 
 										var _request = xtAPI.request;
-										$(".headimg").attr("href", "https://h5.youzan.com/v2/showcase/homepage?kdt_id="+liveinfo["shop_youzan_id"])
+										$(".headimg").attr("href", "https://h5.youzan.com/v2/showcase/homepage?kdt_id=" + liveinfo["shop_youzan_id"]);
 										share.tit = liveinfo["sharetitle"] ? liveinfo["sharetitle"] : liveinfo["channelname"];
 										document.title = liveinfo["channelname"];
 										$(".livename").text(liveinfo["channelname"]);
@@ -800,43 +800,23 @@ var xtAPI = function () {
 												// },1000);
 											}
 										}
-										if(giftlist.length > 0){
-											$(".recommend_product").attr("href",giftlist[0]["detail_url"]);
-											$(".recommend_product").html('<div class="proimg">'+
-								                '<img src="' + giftlist[0]["img_url"] + '" alt="">'+
-								            '</div>'+
-								            '<div class="proinfo">'+
-								                '<div class="tit">' + giftlist[0]["shop_name"] + '</div>'+
-								                '<div class="price">¥' +  Number(giftlist[0]["price"]).toFixed(2) + '</div>'+
-								            '</div>');
-										for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
-											$(".prolist-wrapper ul").append('<li>'+
-					                        '<div class="proimg">'+
-					                            '<img src="' + giftlist[i]["img_url"] + '" class="" alt="">'+
-					                        '</div>'+
-					                        '<div class="proinfo">'+
-					                            '<div class="tit">' + giftlist[i]["shop_name"] + '</div>'+
-					                            '<div class="pn">'+
-					                                '<span class="price">¥ ' + Number(giftlist[i]["price"]).toFixed(2) + '</span>'+
-					                                '<div class="ctrlnums">'+
-					                                    '<a href="' + giftlist[i]["detail_url"] + '" class="btn btn-buy">马上购买</a>'+
-					                                '</div>'+
-					                            '</div>'+
-					                        '</div>'+
-					                    '</li>');
+										if (giftlist.length > 0) {
+											$(".recommend_product").show().attr("href", giftlist[0]["detail_url"]);
+											$(".recommend_product").html('<div class="proimg">' + '<img src="' + giftlist[0]["img_url"] + '" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftlist[0]["shop_name"] + '</div>' + '<div class="price">¥' + Number(giftlist[0]["price"]).toFixed(2) + '</div>' + '</div>');
+											for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
+												$(".prolist-wrapper ul").append('<li>' + '<div class="proimg">' + '<img src="' + giftlist[i]["img_url"] + '" class="" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftlist[i]["shop_name"] + '</div>' + '<div class="pn">' + '<span class="price">¥ ' + Number(giftlist[i]["price"]).toFixed(2) + '</span>' + '<div class="ctrlnums">' + '<a href="javascript:;" data-href="' + giftlist[i]["detail_url"] + '" class="btn btn-buy">马上购买</a>' + '</div>' + '</div>' + '</div>' + '</li>');
+											}
+										} else {
+											$(".recommend_product").remove();
 										}
-									}else{
-										$(".recommend_product").remove();
-									}
 
-									$(".ctrlnums a").click(function(e){
-										e.preventDefault();
-										var _this = $(this)
-										easemob.sendMsg('在购买的路上',function(){
-											window.location.href=_this.attr("href");
+										$(".ctrlnums a").click(function (e) {
+											// e.preventDefault();
+											var _this = $(this);
+											easemob.sendMsg('在购买的路上', function () {
+												window.location.href = _this.attr("data-href");
+											});
 										});
-										
-									})
 										$(".money-choose li:first").addClass("money-selected");
 
 										$(".money-choose li").click(function () {
@@ -1048,7 +1028,7 @@ var xtAPI = function () {
 				window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/eblive/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=" + from + "#wechat_redirect";
 				return;
 			}
-			 
+
 			$.ajax({
 				url: commonUrl + 'newliveshop/stemp/getChannelAuth.do',
 				type: 'post',
@@ -1078,11 +1058,12 @@ var xtAPI = function () {
 								$(".welcome").fadeOut(1000);
 							}, 3000);
 						}
-						Promise.all([xtAPI.getChannelInfo(), xtAPI.loadindexitem(),xtAPI.giftlist()]).then(function (result) {
+						Promise.all([xtAPI.getChannelInfo(), xtAPI.loadindexitem(), xtAPI.giftlist()]).then(function (result) {
 							var liveinfo = xtAPI.liveInfo["data"] = result[0],
-							    indexitem = result[1],giftlist = result[2];
+							    indexitem = result[1],
+							    giftlist = result[2];
 							$(".loading").fadeOut();
-							$(".headimg").attr("href", "https://h5.youzan.com/v2/showcase/homepage?kdt_id="+liveinfo["shop_youzan_id"])
+							$(".headimg").attr("href", "https://h5.youzan.com/v2/showcase/homepage?kdt_id=" + liveinfo["shop_youzan_id"]);
 							var _request = xtAPI.request;
 
 							share.tit = liveinfo["sharetitle"] ? liveinfo["sharetitle"] : liveinfo["channelname"];
@@ -1145,34 +1126,15 @@ var xtAPI = function () {
 								}
 							}
 
-							if(giftlist.length > 0){
-											$(".recommend_product").attr("href",giftlist[0]["detail_url"]);
-											$(".recommend_product").html('<div class="proimg">'+
-								                '<img src="' + giftlist[0]["img_url"] + '" alt="">'+
-								            '</div>'+
-								            '<div class="proinfo">'+
-								                '<div class="tit">' + giftlist[0]["shop_name"] + '</div>'+
-								                '<div class="price">¥' +  Number(giftlist[0]["price"]).toFixed(2) + '</div>'+
-								            '</div>');
-										for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
-											$(".prolist-wrapper ul").append('<li>'+
-					                        '<div class="proimg">'+
-					                            '<img src="' + giftlist[i]["img_url"] + '" class="" alt="">'+
-					                        '</div>'+
-					                        '<div class="proinfo">'+
-					                            '<div class="tit">' + giftlist[i]["shop_name"] + '</div>'+
-					                            '<div class="pn">'+
-					                                '<span class="price">¥ ' + Number(giftlist[i]["price"]).toFixed(2) + '</span>'+
-					                                '<div class="ctrlnums">'+
-					                                    '<a href="' + giftlist[i]["detail_url"] + '" class="btn btn-buy">马上购买</a>'+
-					                                '</div>'+
-					                            '</div>'+
-					                        '</div>'+
-					                    '</li>');
-										}
-									}else{
-										$(".recommend_product").remove();
-									}
+							if (giftlist.length > 0) {
+								$(".recommend_product").show().attr("href", giftlist[0]["detail_url"]);
+								$(".recommend_product").html('<div class="proimg">' + '<img src="' + giftlist[0]["img_url"] + '" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftlist[0]["shop_name"] + '</div>' + '<div class="price">¥' + Number(giftlist[0]["price"]).toFixed(2) + '</div>' + '</div>');
+								for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
+									$(".prolist-wrapper ul").append('<li>' + '<div class="proimg">' + '<img src="' + giftlist[i]["img_url"] + '" class="" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftlist[i]["shop_name"] + '</div>' + '<div class="pn">' + '<span class="price">¥ ' + Number(giftlist[i]["price"]).toFixed(2) + '</span>' + '<div class="ctrlnums">' + '<a href="' + giftlist[i]["detail_url"] + '" class="btn btn-buy">马上购买</a>' + '</div>' + '</div>' + '</div>' + '</li>');
+								}
+							} else {
+								$(".recommend_product").remove();
+							}
 							// $(".numcount").text('1154人');
 							$(".numcount").text(liveinfo["uv"] + '人');
 							$(".anchorheadimg img").attr("src", indexitem["logo"]["logoimg"]);
@@ -1217,16 +1179,16 @@ var xtAPI = function () {
 								$("#iosDialog1").fadeOut(200);
 							});
 							$(".weui-dialog__btn_primary").click(function () {
-								
-								if(!isWeixin){
-								 	layui.use(['layer'], function () {
+
+								if (!isWeixin) {
+									layui.use(['layer'], function () {
 										layer.msg("请在微信中打开授权");
 									});
-								 	// return;
-								 }else{
-								 	localStorage.setItem("isChooseLogined", 1);
-								window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newlive/web/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-								 }
+									// return;
+								} else {
+									localStorage.setItem("isChooseLogined", 1);
+									window.location.href = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + xtAPI.appid + "&redirect_uri=" + xtAPI.commonUrl + "newliveshop/web/index.html?liveid=" + request["liveid"] + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+								}
 							});
 						});
 					}

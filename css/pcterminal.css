@@ -36,12 +36,12 @@ body{ /*background: url(../images/banner.jpg) no-repeat center; background-size:
 .product-box .topbar{ padding: 16px 0 16px 24px; border-bottom: 2px solid #ddd; position: relative;}
 .product-list{ padding: 34px 64px 50px;}
 .product-list .product-item{ width: 24%; font-size: 12px; background-color: #f5f5f5; padding-bottom: 10px; float: left; margin: 0 .5% 10px;}
-.product-list .product-item .product-img{ width: 100%;}
+.product-list .product-item .product-img{ width: 100%; height: 209px; overflow: hidden; }
 .product-list .product-item .product-img img{  width: 100%;}
 .product-pn .product-price{ color: #ef2323; font-size: 16px; display: inline-block; margin-top: 5px;}
 .product-pn .choose-num{float: right; /*width: 70px; */margin-top: 1.5px;}
 .product-pn .choose-num input{ width: 34px; vertical-align: top; border-left: 0; border-right: 0; border-top: 1px solid #ccc;border-bottom: 1px solid #ccc; height: 18px; line-height: 18px; text-align: center;}
-.product-item .product-tit{ margin-bottom: 15px;}
+.product-item .product-tit{/* margin-bottom: 15px;*/}
 .product-item .product-pn,.product-item .product-tit{ padding: 0 12px;  height: 32px;}
 .product-box .topbar .tit{line-height: 32px;}
 .live-video {height:calc(100% - 104px);}
