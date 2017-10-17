@@ -48,6 +48,8 @@ var easemob = function () {
             },
             onClosed: function onClosed(message) {
                 console.log('connection close');
+                // alert("closed!!!!")
+                easemob.initWEBIM()
             }, //connection closed
             onTextMessage: function onTextMessage(message) {
                 // console.log("get message");      
@@ -76,7 +78,7 @@ var easemob = function () {
                     // console.log(action);
                     switch (message.action) {
                         case "chatopenopen":
-                            //这起的什么名。。。聊天开启
+                            //聊天开启
                             chatOpen = true;
                             $(".discuss-input #msg-input").attr({ "readonly": false, "placeholder": '' }); 
                             if(chatCheck==true){
@@ -149,8 +151,13 @@ var easemob = function () {
             onRoster: function onRoster(message) {}, //处理好友申请
             onInviteMessage: function onInviteMessage(message) {}, //处理群组邀请
             onOnline: function onOnline() {}, //本机网络连接成功
-            onOffline: function onOffline() {}, //本机网络掉线
-            onError: function onError(message) { alert(JSON.stringify(message))}, //失败回调
+            onOffline: function onOffline() {
+                easemob.initWEBIM()
+            }, //本机网络掉线
+            onError: function onError(message) { 
+                // alert(JSON.stringify(message))
+                easemob.initWEBIM()
+            }, //失败回调
             onBlacklistUpdate: function onBlacklistUpdate(list) {
                 //黑名单变动
                 //黑名单，将好友拉黑，将好友从黑名单移除都会回调这个函数，list则是黑名单现有的所有好友信息
