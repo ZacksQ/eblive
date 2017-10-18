@@ -801,10 +801,26 @@ var xtAPI = function () {
 											}
 										}
 										if (giftlist.length > 0) {
+											var giftarr = []
 											$(".recommend_product").show().attr("href", giftlist[0]["detail_url"]);
 											$(".recommend_product").html('<div class="proimg">' + '<img src="' + giftlist[0]["img_url"] + '" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftlist[0]["shop_name"] + '</div>' + '<div class="price">¥' + Number(giftlist[0]["price"]).toFixed(2) + '</div>' + '</div>');
 											for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
+												giftarr.push({
+										img_url: giftlist[i]["img_url"],
+										shop_name: giftlist[i]["shop_name"],
+										price: Number(giftlist[i]["price"]).toFixed(2),
+										detail_url: giftlist[i]["detail_url"]
+									})
 												$(".prolist-wrapper ul").append('<li>' + '<div class="proimg">' + '<img src="' + giftlist[i]["img_url"] + '" class="" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftlist[i]["shop_name"] + '</div>' + '<div class="pn">' + '<span class="price">¥ ' + Number(giftlist[i]["price"]).toFixed(2) + '</span>' + '<div class="ctrlnums">' + '<a href="javascript:;" data-href="' + giftlist[i]["detail_url"] + '" class="btn btn-buy">马上购买</a>' + '</div>' + '</div>' + '</div>' + '</li>');
+												var gifti = 0
+												setInterval(function(){
+									if(gifti == giftarr.length - 1){
+										gifti = 0
+									}
+								$(".recommend_product").attr("href", giftarr[gifti]["detail_url"]);
+								$(".recommend_product").html('<div class="proimg">' + '<img src="' + giftarr[gifti]["img_url"] + '" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftarr[gifti]["shop_name"] + '</div>' + '<div class="price">¥' + Number(giftarr[gifti]["price"]).toFixed(2) + '</div>' + '</div>');
+									gifti++
+								},8000)
 											}
 										} else {
 											$(".recommend_product").remove();
@@ -1126,15 +1142,35 @@ var xtAPI = function () {
 								}
 							}
 
+
 							if (giftlist.length > 0) {
-								$(".recommend_product").show().attr("href", giftlist[0]["detail_url"]);
+								var giftarr = []
+								$(".recommend_product").attr("href", giftlist[0]["detail_url"]);
 								$(".recommend_product").html('<div class="proimg">' + '<img src="' + giftlist[0]["img_url"] + '" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftlist[0]["shop_name"] + '</div>' + '<div class="price">¥' + Number(giftlist[0]["price"]).toFixed(2) + '</div>' + '</div>');
 								for (var i = 0, giftlist_length = giftlist.length; i < giftlist_length; i++) {
+									giftarr.push({
+										img_url: giftlist[i]["img_url"],
+										shop_name: giftlist[i]["shop_name"],
+										price: Number(giftlist[i]["price"]).toFixed(2),
+										detail_url: giftlist[i]["detail_url"]
+									})
 									$(".prolist-wrapper ul").append('<li>' + '<div class="proimg">' + '<img src="' + giftlist[i]["img_url"] + '" class="" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftlist[i]["shop_name"] + '</div>' + '<div class="pn">' + '<span class="price">¥ ' + Number(giftlist[i]["price"]).toFixed(2) + '</span>' + '<div class="ctrlnums">' + '<a href="' + giftlist[i]["detail_url"] + '" class="btn btn-buy">马上购买</a>' + '</div>' + '</div>' + '</div>' + '</li>');
 								}
+								var gifti = 0
+								setInterval(function(){
+									if(gifti == giftarr.length - 1){
+										gifti = 0
+									}
+								$(".recommend_product").attr("href", giftarr[gifti]["detail_url"]);
+								$(".recommend_product").html('<div class="proimg">' + '<img src="' + giftarr[gifti]["img_url"] + '" alt="">' + '</div>' + '<div class="proinfo">' + '<div class="tit">' + giftarr[gifti]["shop_name"] + '</div>' + '<div class="price">¥' + Number(giftarr[gifti]["price"]).toFixed(2) + '</div>' + '</div>');
+									gifti++
+								},8000)
+
 							} else {
 								$(".recommend_product").remove();
 							}
+
+
 							// $(".numcount").text('1154人');
 							$(".numcount").text(liveinfo["uv"] + '人');
 							$(".anchorheadimg img").attr("src", indexitem["logo"]["logoimg"]);

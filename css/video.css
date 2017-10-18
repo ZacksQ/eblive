@@ -94,7 +94,7 @@ html,body,#top,#player,#container,.player{ height: 100%;overflow: hidden;}
         .btn-cost{ background-color: #ff2626; color: #fff; height: 30px; line-height: 30px;/* width: 17%;*/ font-size: 14px; float: right; margin-top: 5px; display: inline-block;}
         .btn-buy{ background-color: #ff2626; color: #fff; display: inline-block; border-radius: 6px; line-height: 30px; text-align: center; font-size: 14px;}
         .cost span{ color: #ff2626; font-size: 16px; margin: 0 5px;}
-        .recommend_product{ display: block; position: absolute; left: 15px; bottom: 70px; height: 50px; background-color: #fff; width: 180px; border-radius: 4px; overflow: hidden; display: flex; display: -webkit-flex; transition: height .2s; -webkit-transition: height .2s; -moz-transition: height .2s; -ms-transition: height .2s; -o-transition: height .2s; display: none;}
+        .recommend_product{ display: block; position: absolute; left: 15px; bottom: 70px; height: 50px; background-color: #fff; width: 180px; border-radius: 4px; overflow: hidden; display: flex; display: -webkit-flex; transition: height .2s; -webkit-transition: height .2s; -moz-transition: height .2s; -ms-transition: height .2s; -o-transition: height .2s; }
         .recommend_product.trainsition{ height: 0;}
         .recommend_product img{ height: 100%;}
         .recommend_product .proimg{ overflow: hidden; width: 70px; height: 100%; text-align: center;}
